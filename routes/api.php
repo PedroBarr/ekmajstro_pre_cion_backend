@@ -18,45 +18,52 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 });*/
 
-Route::get(
-    "/",
-    function ( ) {
-        $index = Response::json("Bitacora Ekmajstro Pre Cion");
-        $respuesta = Response::make($index, 200);
-        $respuesta->header("Content-Type","application/json");
+Route::middleware(['cors'])->group(function ( ) {
+    Route::get(
+        "/",
+        function ( ) {
+            /*$index = Response::json([
+                "nombre" => "Bitacora Ekmajstro Pre Cion"
+            ]);*/
+            $index = Response::json("Bitacora Ekmajstro Pre Cion");
 
-        return $respuesta;
-        //return redirect()->route('about');
-    }
-);
+            $respuesta = Response::make($index, 200);
+            $respuesta->header("Content-Type","application/json");
 
-Route::get(
-    "/about",
-    [\App\Http\Controllers\TrazabilidadController::class, 'index']
-)->name('about');
+            //return $respuesta;
+            return $index;
+            //return redirect()->route('about');
+        }
+    );
 
-Route::get(
-    "/recursos",
-    [\App\Http\Controllers\RecursoController::class, 'index']
-)->name('recursos');
+    Route::get(
+        "/about",
+        [\App\Http\Controllers\TrazabilidadController::class, 'index']
+    )->name('about');
 
-Route::get(
-    "/recurso/{diminutivo}",
-    [\App\Http\Controllers\RecursoController::class, 'show']
-)->name('recurso');
+    Route::get(
+        "/recursos",
+        [\App\Http\Controllers\RecursoController::class, 'index']
+    )->name('recursos');
 
-/*Route::get(
-    "/favicon.ico",
-    function ( ) {
-        $ruta = resource_path() . '/assets/img/icons/favicon.ico';
+    Route::get(
+        "/recurso/{diminutivo}",
+        [\App\Http\Controllers\RecursoController::class, 'show']
+    )->name('recurso');
 
-        $archivo = File::get($ruta);
-        $tipo = File::mimeType($ruta);
+    /*Route::get(
+        "/favicon.ico",
+        function ( ) {
+            $ruta = resource_path() . '/assets/img/icons/favicon.ico';
 
-        $respuesta = Response::make($archivo, 200);
-        $respuesta->header("Content-Type",$tipo);
+            $archivo = File::get($ruta);
+            $tipo = File::mimeType($ruta);
 
-        return $respuesta;
-        //return File::get(resource_path() . '/assets/img/icons/favicon.ico');
-    }
-);*/
+            $respuesta = Response::make($archivo, 200);
+            $respuesta->header("Content-Type",$tipo);
+
+            return $respuesta;
+            //return File::get(resource_path() . '/assets/img/icons/favicon.ico');
+        }
+    );*/
+});
