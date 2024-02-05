@@ -5,17 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TipoRecurso extends Model
+class Segmento extends Model
 {
     use HasFactory;
 
-    protected $table = "tipos_recurso";
-    protected $primaryKey = 'tp_rec_id';
+    protected $table = "segmentos";
+    protected $primaryKey = 'segm_id';
 
     protected $fillable = [
-        "tp_rec_nombre",
-        "tp_rec_descripcion",
-        "tp_rec_diminutivo"
+        "segm_medida",
+        "segm_posicion",
+        "segm_contenido",
+        "secc_id"
     ];
 
     protected $hidden = [
@@ -24,7 +25,7 @@ class TipoRecurso extends Model
     ];
 
     //relaciones
-    public function recursos ( ) {
-        return $this->hasMany(Recurso::class);
+    public function secciones ( ) {
+        return $this->belongsTo(Seccion::class);
     }
 }

@@ -37,6 +37,34 @@ class TrazabilidadController extends Controller
         return Response::json([]);
     }
 
+    public function social()
+    {
+        $base_url = 'assets/img/icons/core/trazabilidad/social/';
+        $social = Response::json(Array(
+            [
+              "soc_nombre" => 'Redes personales',
+              "soc_icon_url" => asset($base_url . 'personal_network' . '.svg'),
+              "soc_anchor_href" => 'https://www.instagram.com/pedrobarr203',
+            ],
+            [
+              "soc_nombre" => 'Redes del consumidor',
+              "soc_icon_url" => asset($base_url . 'consumer_network' . '.svg'),
+              "soc_anchor_href" => 'https://www.youtube.com/@pedrobarr_2037',
+            ],
+            [
+              "soc_nombre" => 'Codigo fuente',
+              "soc_icon_url" => asset($base_url . 'source_code' . '.svg'),
+              "soc_anchor_href" => 'https://github.com/PedroBarr',
+            ],
+            [
+              "soc_nombre" => 'Fuente de proposito',
+              "soc_icon_url" => asset($base_url . 'source_purpose' . '.svg'),
+              "soc_anchor_href" => 'https://pedrobarr.github.io/',
+            ]
+        ));
+        return $social;
+    }
+
     /**
      * Store a newly created resource in storage.
      *

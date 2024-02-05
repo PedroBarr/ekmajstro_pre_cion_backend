@@ -13,10 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tipos_permiso', function (Blueprint $table) {
-            $table->id('tp_perm_id');
-            $table->string('tp_perm_nombre',100)->unique();
-            $table->text('tp_perm_descripcion');
+        Schema::create('secciones', function (Blueprint $table) {
+            $table->id('secc_id');
+            $table->string('secc_nombre');
+            $table->unsignedBigInteger('pblc_id');
+            $table->foreign('pblc_id')
+                ->references('pblc_id')
+                ->on('publicaciones')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipos_permiso');
+        Schema::dropIfExists('secciones');
     }
 };

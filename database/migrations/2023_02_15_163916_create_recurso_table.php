@@ -14,23 +14,28 @@ return new class extends Migration
     public function up()
     {
         Schema::create('recursos', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre',150)->unique();
-            $table->text('descripcion');
-            $table->string('diminutivo')->unique();
-            $table->string('enlace')->unique()->nullable();
+            $table->id('rec_id');
+            $table->string('rec_nombre',150)->unique();
+            $table->text('rec_descripcion');
+            $table->string('rec_diminutivo')->nullable();
 
             //relaciones
-            $table->unsignedBigInteger('tipo_recurso_id');
-            $table->foreign('tipo_recurso_id')
-                ->references('id')
+            $table->unsignedBigInteger('tp_rec_id');
+            $table->foreign('tp_rec_id')
+                ->references('tp_rec_id')
                 ->on('tipos_recurso')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('tipo_permiso_id');
-            $table->foreign('tipo_permiso_id')
-                ->references('id')
+            $table->unsignedBigInteger('tp_perm_id');
+            $table->foreign('tp_perm_id')
+                ->references('tp_perm_id')
                 ->on('tipos_permiso')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->unsignedBigInteger('espc_id');
+            $table->foreign('espc_id')
+                ->references('espc_id')
+                ->on('especificaciones_recurso')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

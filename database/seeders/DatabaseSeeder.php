@@ -16,12 +16,6 @@ class DatabaseSeeder extends Seeder
     {
         //\App\Models\User::factory(10)->create();
 
-        \App\Models\TipoRecurso::factory(3)->create();
-
-        \App\Models\TipoPermiso::factory(3)->create();
-
-        \App\Models\Recurso::factory(5)->create();
-
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',

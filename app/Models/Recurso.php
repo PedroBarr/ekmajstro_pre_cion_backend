@@ -10,14 +10,16 @@ class Recurso extends Model
     use HasFactory;
 
     protected $table = "recursos";
+    protected $primaryKey = 'rec_id';
 
     protected $fillable = [
-        "nombre",
-        "descripcion",
-        "diminutivo",
-        "enlace",
-        "tipo_recurso_id",
-        "tipo_permiso_id"
+        "rec_nombre",
+        "rec_descripcion",
+        "rec_diminutivo",
+        "tp_rec_id",
+        "espc_id",
+        "tp_perm_id",
+        "arch_id"
     ];
 
     protected $hidden = [
@@ -26,11 +28,27 @@ class Recurso extends Model
     ];
 
     //relaciones
-    public function tipoRecurso ( ) {
+    public function tipos ( ) {
         return $this->belongsTo(TipoRecurso::class);
     }
 
-    public function tipoPermiso ( ) {
+    public function especificaciones ( ) {
+        return $this->belongsTo(EspecificacionRecurso::class);
+    }
+
+    public function permisos ( ) {
         return $this->belongsTo(TipoPermiso::class);
+    }
+
+    public function archivos ( ) {
+        return $this->belongsTo(Archivo::class);
+    }
+
+    public function publicaciones ( ) {
+        return $this->belongsToMany(Publicacion::class);
+    }
+
+    public function previsualizaciones ( ) {
+        return $this->hasMany(Previsualizacion::class);
     }
 }

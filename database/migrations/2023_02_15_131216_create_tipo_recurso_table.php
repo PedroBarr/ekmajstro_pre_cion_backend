@@ -14,11 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tipos_recurso', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre',100)->unique();
-            $table->text('descripcion')->nullable();
-            $table->string('diminutivo')->unique();
+            $table->id('tp_rec_id');
+            $table->string('tp_rec_nombre',100)->unique();
+            $table->text('tp_rec_descripcion')->nullable();
+            $table->string('tp_rec_diminutivo')->unique();
             $table->timestamps();
+        });
+
+        Schema::create('especificaciones_recurso', function (Blueprint $table) {
+            $table->id('espc_id');
+            $table->string('espc_descripcin',100);
         });
     }
 
@@ -30,5 +35,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('tipos_recurso');
+        Schema::dropIfExists('especificaciones_recurso');
     }
 };

@@ -5,17 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TipoRecurso extends Model
+class Archivo extends Model
 {
     use HasFactory;
 
-    protected $table = "tipos_recurso";
-    protected $primaryKey = 'tp_rec_id';
+    protected $table = "archivos";
+    protected $primaryKey = 'arch_id';
 
     protected $fillable = [
-        "tp_rec_nombre",
-        "tp_rec_descripcion",
-        "tp_rec_diminutivo"
+        "arch_uri",
+        "arch_mime",
+        "arch_extension",
+        "arch_size",
+        "arch_name"
     ];
 
     protected $hidden = [

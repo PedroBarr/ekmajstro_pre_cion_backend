@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tipos_permiso', function (Blueprint $table) {
-            $table->id('tp_perm_id');
-            $table->string('tp_perm_nombre',100)->unique();
-            $table->text('tp_perm_descripcion');
-            $table->timestamps();
-        });
+        $data= array(
+            'tp_perm_nombre' => 'lector',
+            'tp_perm_descripcion' => (
+                'Tipo de permiso genérico para la bitácora.'
+            ),
+        );
+
+        DB::table('tipos_permiso')->insert($data);
     }
 
     /**
@@ -28,6 +30,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipos_permiso');
+        DB::table('tipos_permiso')
+            ->where('tp_perm_nombre', 'lector')
+            ->delete();
+
     }
 };

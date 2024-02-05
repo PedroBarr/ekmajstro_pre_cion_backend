@@ -5,17 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TipoRecurso extends Model
+class EspecificacionRecurso extends Model
 {
     use HasFactory;
 
-    protected $table = "tipos_recurso";
-    protected $primaryKey = 'tp_rec_id';
+    protected $table = "especificaciones_recurso";
+    protected $primaryKey = 'espc_id';
 
     protected $fillable = [
-        "tp_rec_nombre",
-        "tp_rec_descripcion",
-        "tp_rec_diminutivo"
+        "espc_descripcin"
     ];
 
     protected $hidden = [

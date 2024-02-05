@@ -13,10 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tipos_permiso', function (Blueprint $table) {
-            $table->id('tp_perm_id');
-            $table->string('tp_perm_nombre',100)->unique();
-            $table->text('tp_perm_descripcion');
+        Schema::create('cajas_comentarios', function (Blueprint $table) {
+            $table->id('caja_comn_id');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipos_permiso');
+        Schema::dropIfExists('cajas_comentarios');
     }
 };

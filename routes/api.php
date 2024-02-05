@@ -25,7 +25,9 @@ Route::middleware(['cors'])->group(function ( ) {
             /*$index = Response::json([
                 "nombre" => "Bitacora Ekmajstro Pre Cion"
             ]);*/
-            $index = Response::json("Bitacora Ekmajstro Pre Cion");
+            $index = Response::json(htmlspecialchars(
+                "Bitacora Ekmajstro Pre Cion"
+            ));
 
             $respuesta = Response::make($index, 200);
             $respuesta->header("Content-Type","application/json");
@@ -37,9 +39,9 @@ Route::middleware(['cors'])->group(function ( ) {
     );
 
     Route::get(
-        "/about",
+        "/acerca_de",
         [\App\Http\Controllers\TrazabilidadController::class, 'index']
-    )->name('about');
+    )->name('acerca_de');
 
     Route::get(
         "/recursos",
@@ -50,6 +52,21 @@ Route::middleware(['cors'])->group(function ( ) {
         "/recurso/{diminutivo}",
         [\App\Http\Controllers\RecursoController::class, 'show']
     )->name('recurso');
+
+    Route::post(
+        "/archivo",
+        [\App\Http\Controllers\ArchivoController::class, 'store']
+    )->name('nuevo_archivo');
+
+    Route::get(
+      "/tipo_recursos",
+      [\App\Http\Controllers\core\TipoRecursoController::class, 'index']
+    )->name('get_tipo_recurso_list');
+
+    Route::get(
+      "/trazabilidad/social",
+      [\App\Http\Controllers\TrazabilidadController::class, 'social']
+    )->name('get_social_data');
 
     /*Route::get(
         "/favicon.ico",

@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tipos_permiso', function (Blueprint $table) {
-            $table->id('tp_perm_id');
-            $table->string('tp_perm_nombre',100)->unique();
-            $table->text('tp_perm_descripcion');
+        Schema::create('anuncios', function (Blueprint $table) {
+            $table->id('anun_id');
+            $table->string('anun_img_cuerpo_uri',150);
+            $table->string('anun_enlace_uri',150)->nullable();
+            $table->string('anun_medida',100);
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipos_permiso');
+        Schema::dropIfExists('anuncios');
     }
 };
