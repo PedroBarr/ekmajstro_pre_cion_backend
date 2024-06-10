@@ -83,4 +83,14 @@ Route::middleware(['cors'])->group(function ( ) {
             //return File::get(resource_path() . '/assets/img/icons/favicon.ico');
         }
     );*/
+
+    Route::get(
+      "/anuncios",
+      [\App\Http\Controllers\core\AnuncioController::class, 'index']
+    )->name('get_anuncio_list');
+
+    Route::get(
+      "/entradas",
+      [\App\Http\Controllers\EntradaController::class, 'index']
+    )->name('get_entrada_list');
 });
