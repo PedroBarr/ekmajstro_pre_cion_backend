@@ -55,8 +55,13 @@ Route::middleware(['cors'])->group(function ( ) {
 
     Route::post(
         "/archivo",
-        [\App\Http\Controllers\ArchivoController::class, 'store']
+        [\App\Http\Controllers\core\ArchivoController::class, 'store']
     )->name('nuevo_archivo');
+
+    Route::get(
+        "/archivo/{id}",
+        [\App\Http\Controllers\core\ArchivoController::class, 'show']
+    )->name('obtener_archivo');
 
     Route::get(
       "/tipo_recursos",

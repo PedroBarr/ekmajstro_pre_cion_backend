@@ -57,6 +57,8 @@ return [
     'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL'),
+    'storage_disk' => env('STORAGE_DISK', 'public'),
+    'storage_path' => env('STORAGE_PATH', 'archivos\\'),
 
     /*
     |--------------------------------------------------------------------------

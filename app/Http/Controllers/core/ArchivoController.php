@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\core;
 
 use Illuminate\Support\Facades\Storage;
 
+use App\Models\Archivo;
 use Illuminate\Http\Request;
 use Response;
+use App\Http\Controllers\Controller;
 
 class ArchivoController extends Controller
 {
@@ -27,7 +29,8 @@ class ArchivoController extends Controller
      */
     public function store(Request $request)
     {
-        $almacenamiento = 'local';
+         $almacenamiento = 'public';
+        //$almacenamiento = 'local';
 
         $archivo = $request->file('archivo');
         $archivo_nombre = $archivo->getClientOriginalName();
@@ -35,7 +38,8 @@ class ArchivoController extends Controller
         $archivo_extension = $archivo->getClientOriginalExtension();
         $archivo_mimetismo = $archivo->getMimeType();
         $archivo_medida = $archivo->getSize();
-        $archivo_ruta = 'static/';
+        // $archivo_ruta = 'static/';
+        $archivo_ruta = 'archivos/';
 
         Storage::disk($almacenamiento)
             ->put($archivo_ruta . $archivo_nombre, $archivo_contenido);
@@ -43,14 +47,31 @@ class ArchivoController extends Controller
         $archivo_uri = Storage::disk($almacenamiento)
             ->url($archivo_ruta . $archivo_nombre);
 
+        if (str_contains($archivo_uri, "localhost")) {
+          $archivo_uri = str_replace(
+            "localhost",
+            $request->getHttpHost(),
+            $archivo_uri,
+          );
+        }
+
         $respuesta = Response::make(Response::json([
             "nombre" => $archivo_nombre,
-            "contenido" => $archivo_contenido,
+            //"contenido" => $archivo_contenido,
             "extension" => $archivo_extension,
             "mimetismo" => $archivo_mimetismo,
             "medida" => $archivo_medida,
-            "uri" => $archivo_uri
+            "uri" => $archivo_uri,
         ]), 200);
+
+        Archivo::create([
+          "arch_uri" => $archivo_uri,
+          "arch_mime" => $archivo_mimetismo,
+          "arch_extension" => $archivo_extension,
+          "arch_size" => $archivo_medida,
+          "arch_name" => $archivo_nombre,
+        ]);
+
         $respuesta->header("Content-Type","application/json");
         return $respuesta;
     }
@@ -63,7 +84,8 @@ class ArchivoController extends Controller
      */
     public function show($id)
     {
-        //
+      //
+      return Archivo::findOrFail($id);
     }
 
     /**
