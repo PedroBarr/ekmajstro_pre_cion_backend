@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +26,7 @@ Route::middleware(['cors'])->group(function ( ) {
                 "nombre" => "Bitacora Ekmajstro Pre Cion"
             ]);*/
             $index = Response::json(htmlspecialchars(
-                "Bitacora Ekmajstro Pre Cion".implode('//',Storage::getFacadeRoot()->getConfig())
+                "Bitacora Ekmajstro Pre Cion"
             ));
 
             $respuesta = Response::make($index, 200);
