@@ -55,22 +55,22 @@ class ArchivoController extends Controller
           );
         }
 
-        $respuesta = Response::make(Response::json([
-            "nombre" => $archivo_nombre,
-            //"contenido" => $archivo_contenido,
-            "extension" => $archivo_extension,
-            "mimetismo" => $archivo_mimetismo,
-            "medida" => $archivo_medida,
-            "uri" => $archivo_uri,
-        ]), 200);
-
-        Archivo::create([
+        $archivo_entidad = Archivo::create([
           "arch_uri" => $archivo_uri,
           "arch_mime" => $archivo_mimetismo,
           "arch_extension" => $archivo_extension,
           "arch_size" => $archivo_medida,
           "arch_name" => $archivo_nombre,
         ]);
+
+        $respuesta = Response::make(Response::json([
+            "nombre" => $archivo_nombre,
+            "extension" => $archivo_extension,
+            "mimetismo" => $archivo_mimetismo,
+            "medida" => $archivo_medida,
+            "uri" => $archivo_uri,
+            "id" => $archivo_entidad->arch_id,
+        ]), 200);
 
         $respuesta->header("Content-Type","application/json");
         return $respuesta;

@@ -9,6 +9,8 @@ class EspecificacionRecurso extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $table = "especificaciones_recurso";
     protected $primaryKey = 'espc_id';
 

@@ -68,6 +68,11 @@ Route::middleware(['cors'])->group(function ( ) {
       [\App\Http\Controllers\core\TipoRecursoController::class, 'index']
     )->name('get_tipo_recurso_list');
 
+    Route::post(
+        "/recurso",
+        [\App\Http\Controllers\core\RecursoController::class, 'store']
+    )->name('nuevo_recurso');
+
     Route::get(
       "/trazabilidad/social",
       [\App\Http\Controllers\TrazabilidadController::class, 'social']
