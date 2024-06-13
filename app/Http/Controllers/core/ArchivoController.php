@@ -29,8 +29,6 @@ class ArchivoController extends Controller
      */
     public function store(Request $request)
     {
-         $almacenamiento = 'public';
-        //$almacenamiento = 'local';
 
         $archivo = $request->file('archivo');
         $archivo_nombre = $archivo->getClientOriginalName();
@@ -41,11 +39,9 @@ class ArchivoController extends Controller
         // $archivo_ruta = 'static/';
         $archivo_ruta = 'archivos/';
 
-        Storage::disk($almacenamiento)
-            ->put($archivo_ruta . $archivo_nombre, $archivo_contenido);
+        Storage::put($archivo_ruta . $archivo_nombre, $archivo_contenido);
 
-        $archivo_uri = Storage::disk($almacenamiento)
-            ->url($archivo_ruta . $archivo_nombre);
+        $archivo_uri = Storage::url($archivo_ruta . $archivo_nombre);
 
         if (str_contains($archivo_uri, "localhost")) {
           $archivo_uri = str_replace(
