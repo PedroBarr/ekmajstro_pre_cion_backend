@@ -98,6 +98,21 @@ Route::middleware(['cors'])->group(function ( ) {
       [\App\Http\Controllers\core\PublicacionController::class, 'show']
     )->name('publicacion');
 
+    Route::post(
+      "/previsualizacion",
+      [\App\Http\Controllers\core\PrevisualizacionController::class, 'store']
+    )->name('nueva_previsualizacion');
+
+    Route::get(
+      "/previsualizaciones",
+      [\App\Http\Controllers\core\PrevisualizacionController::class, 'index']
+    )->name('previsualizaciones');
+
+    Route::get(
+      "/previsualizacion/{id}",
+      [\App\Http\Controllers\core\PrevisualizacionController::class, 'show']
+    )->name('previsualizacion');
+
     /*Route::get(
         "/favicon.ico",
         function ( ) {
