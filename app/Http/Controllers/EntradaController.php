@@ -17,17 +17,55 @@ class EntradaController extends Controller
     public function index()
     {
         $anuncios_base_url = 'assets/img/core/anuncios/';
-        $anuncio_acerca_de = Anuncio::find(1);
+        $previsualizaciones = Array();
 
-        $previsualizaciones = Array(
-          [
-            "prev_tipo" => "ANUNCIO",
-            "anun_id" => $anuncio_acerca_de['anun_id'],
-            "anun_img" => asset($anuncios_base_url . $anuncio_acerca_de['anun_img_cuerpo_uri']),
-            "anun_enlace" => $anuncio_acerca_de['anun_enlace_uri'],
-            "anun_medida" => $anuncio_acerca_de['anun_medida'],
-          ]
-        );
+        $anuncios_grandes = Anuncio::where("anun_medida", "2x1")->get();
+        $anuncios_chicos = Anuncio::where("anun_medida", "1x1")->first();
+
+        if (isset($anuncios_grandes) && count($anuncios_grandes) > 0) {
+          $anuncio = $anuncios_grandes[0];
+
+          array_push(
+            $previsualizaciones,
+            [
+              "prev_tipo" => "ANUNCIO",
+              "anun_id" => $anuncio['anun_id'],
+              "anun_img" => asset($anuncios_base_url . $anuncio['anun_img_cuerpo_uri']),
+              "anun_enlace" => $anuncio['anun_enlace_uri'],
+              "anun_medida" => $anuncio['anun_medida'],
+            ]
+          );
+        }
+
+        if (isset($anuncios_grandes) && count($anuncios_grandes) > 1) {
+          $anuncio = $anuncios_grandes[1];
+
+          array_push(
+            $previsualizaciones,
+            [
+              "prev_tipo" => "ANUNCIO",
+              "anun_id" => $anuncio['anun_id'],
+              "anun_img" => asset($anuncios_base_url . $anuncio['anun_img_cuerpo_uri']),
+              "anun_enlace" => $anuncio['anun_enlace_uri'],
+              "anun_medida" => $anuncio['anun_medida'],
+            ]
+          );
+        }
+
+        if (isset($anuncios_chicos) && count($anuncios_chicos) > 0) {
+          $anuncio = $anuncios_chicos[0];
+
+          array_push(
+            $previsualizaciones,
+            [
+              "prev_tipo" => "ANUNCIO",
+              "anun_id" => $anuncio['anun_id'],
+              "anun_img" => asset($anuncios_base_url . $anuncio['anun_img_cuerpo_uri']),
+              "anun_enlace" => $anuncio['anun_enlace_uri'],
+              "anun_medida" => $anuncio['anun_medida'],
+            ]
+          );
+        }
 
         return $previsualizaciones;
     }
