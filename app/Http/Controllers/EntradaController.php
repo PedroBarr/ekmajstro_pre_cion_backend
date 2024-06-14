@@ -42,16 +42,25 @@ class EntradaController extends Controller
         $previsualizaciones_base_url = 'assets/img/core/anuncios/';
         $entradas = Array();
 
-        $anuncios_grandes = Anuncio::where("anun_medida", "2x1")->get();
-        $anuncios_chicos = Anuncio::where("anun_medida", "1x1")->first();
-
         $previsualizaciones = Previsualizacion::get();
 
+        $anuncio_acerca_de = Anuncio
+          ::where("anun_enlace_uri", "/acerca_de")
+          ->first()
+        ;
+
+        $anuncios_grandes = Anuncio
+          ::where("anun_enlace_uri", '!=', "/acerca_de")
+          ->where("anun_medida", "2x1")
+          ->get()
+        ;
+
+        $anuncios_chicos = Anuncio::where("anun_medida", "1x1")->get();
+
         if (isset($previsualizaciones) && count($previsualizaciones) > 0) {
-          $contador_preanuncio = 3;
           for (
             $i = 0;
-            $i < min([$contador_preanuncio, count($previsualizaciones)]);
+            $i < min([13, count($previsualizaciones)]);
             $i++
           ) {
             array_push(
@@ -61,60 +70,59 @@ class EntradaController extends Controller
           }
         }
 
-        if (isset($anuncios_grandes) && count($anuncios_grandes) > 0) {
-          array_push(
+        if (
+          isset($anuncios_grandes) &&
+          count($anuncios_grandes) > 0 &&
+          isset($previsualizaciones) &&
+          count($previsualizaciones) >= 3
+        ) {
+          array_splice(
             $entradas,
-            $this->get_entrada_from_anuncio(
-              $anuncios_grandes[0],
-              $anuncios_base_url
+            3,
+            0,
+            Array(
+              $this->get_entrada_from_anuncio(
+                $anuncio_acerca_de,
+                $anuncios_base_url
+              )
             )
           );
         }
 
-        if (isset($previsualizaciones) && count($previsualizaciones) > 3) {
-          $contador_preanuncio = 4;
-          for (
-            $i = 3;
-            $i < min([$contador_preanuncio, count($previsualizaciones)]) + 3;
-            $i++
-          ) {
-            array_push(
-              $entradas,
-              $this->get_entrada_from_previsualizacion($previsualizaciones[$i])
-            );
-          }
-        }
-
-        if (isset($anuncios_grandes) && count($anuncios_grandes) > 1) {
-          array_push(
+        if (
+          isset($anuncios_chicos) &&
+          count($anuncios_chicos) > 0 &&
+          isset($previsualizaciones) &&
+          count($previsualizaciones) >= 8
+        ) {
+          array_splice(
             $entradas,
-            $this->get_entrada_from_anuncio(
-              $anuncios_grandes[1],
-              $anuncios_base_url
+            9,
+            0,
+            Array(
+              $this->get_entrada_from_anuncio(
+                $anuncios_chicos[rand(0, count($anuncios_chicos) - 1)],
+                $anuncios_base_url
+              )
             )
           );
         }
 
-        if (isset($previsualizaciones) && count($previsualizaciones) > 8) {
-          $contador_preanuncio = 4;
-          for (
-            $i = 8;
-            $i < min([$contador_preanuncio, count($previsualizaciones)]) + 8;
-            $i++
-          ) {
-            array_push(
-              $entradas,
-              $this->get_entrada_from_previsualizacion($previsualizaciones[$i])
-            );
-          }
-        }
-
-        if (isset($anuncios_chicos) && count($anuncios_chicos) > 0) {
-          array_push(
+        if (
+          isset($anuncios_grandes) &&
+          count($anuncios_grandes) > 1 &&
+          isset($previsualizaciones) &&
+          count($previsualizaciones) >= 13
+        ) {
+          array_splice(
             $entradas,
-            $this->get_entrada_from_anuncio(
-              $anuncios_chicos[0],
-              $anuncios_base_url
+            15,
+            0,
+            Array(
+              $this->get_entrada_from_anuncio(
+                $anuncios_grandes[rand(0, count($anuncios_grandes) - 1)],
+                $anuncios_base_url
+              )
             )
           );
         }
