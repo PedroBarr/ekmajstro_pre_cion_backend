@@ -40,10 +40,6 @@ class Publicacion extends Model
         return $this->hasMany(Seccion::class);
     }
 
-    public function previsualizaciones ( ) {
-        return $this->hasMany(Previsualizacion::class);
-    }
-
     public function secciones_marcadas ( ) {
         return $this->hasMany(SeccionMarcada::class);
     }

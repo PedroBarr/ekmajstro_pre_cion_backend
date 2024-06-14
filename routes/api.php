@@ -44,29 +44,34 @@ Route::middleware(['cors'])->group(function ( ) {
     )->name('acerca_de');
 
     Route::get(
+      "/trazabilidad/social",
+      [\App\Http\Controllers\TrazabilidadController::class, 'social']
+    )->name('get_social_data');
+
+    Route::post(
+        "/recurso",
+        [\App\Http\Controllers\core\RecursoController::class, 'store']
+    )->name('nuevo_recurso');
+
+    Route::get(
         "/recursos",
-        [\App\Http\Controllers\RecursoController::class, 'index']
+        [\App\Http\Controllers\core\RecursoController::class, 'index']
     )->name('recursos');
 
     Route::get(
         "/recurso/{diminutivo}",
-        [\App\Http\Controllers\RecursoController::class, 'show']
+        [\App\Http\Controllers\core\RecursoController::class, 'show']
     )->name('recurso');
-
-    Route::get(
-        "/archivos",
-        [\App\Http\Controllers\core\ArchivoController::class, 'index']
-    )->name('archivos');
-
-    Route::get(
-        "/archivo/{id}",
-        [\App\Http\Controllers\core\ArchivoController::class, 'show']
-    )->name('archivo');
 
     Route::post(
         "/archivo",
         [\App\Http\Controllers\core\ArchivoController::class, 'store']
     )->name('nuevo_archivo');
+
+    Route::get(
+        "/archivos",
+        [\App\Http\Controllers\core\ArchivoController::class, 'index']
+    )->name('archivos');
 
     Route::get(
         "/archivo/{id}",
@@ -79,14 +84,19 @@ Route::middleware(['cors'])->group(function ( ) {
     )->name('get_tipo_recurso_list');
 
     Route::post(
-        "/recurso",
-        [\App\Http\Controllers\core\RecursoController::class, 'store']
-    )->name('nuevo_recurso');
+      "/publicacion",
+      [\App\Http\Controllers\core\PublicacionController::class, 'store']
+    )->name('nueva_publicacion');
 
     Route::get(
-      "/trazabilidad/social",
-      [\App\Http\Controllers\TrazabilidadController::class, 'social']
-    )->name('get_social_data');
+      "/publicaciones",
+      [\App\Http\Controllers\core\PublicacionController::class, 'index']
+    )->name('publicaciones');
+
+    Route::get(
+      "/publicacion/{id}",
+      [\App\Http\Controllers\core\PublicacionController::class, 'show']
+    )->name('publicacion');
 
     /*Route::get(
         "/favicon.ico",
