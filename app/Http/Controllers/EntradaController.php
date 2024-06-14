@@ -5,10 +5,32 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Anuncio;
+use App\Models\Previsualizacion;
 use App\Http\Controllers\Controller;
 
 class EntradaController extends Controller
 {
+
+    private function get_entrada_from_anuncio($anuncio, $base_url) {
+      return [
+        "prev_tipo" => "ANUNCIO",
+        "anun_id" => $anuncio['anun_id'],
+        "anun_img" => asset($base_url . $anuncio['anun_img_cuerpo_uri']),
+        "anun_enlace" => $anuncio['anun_enlace_uri'],
+        "anun_medida" => $anuncio['anun_medida'],
+      ];
+    }
+
+    private function get_entrada_from_previsualizacion($previsualizacion) {
+      return [
+        "prev_tipo" => "PREVISUALIZCION",
+        "prev_id" => $previsualizacion['prev_id'],
+        "prev_img" => $previsualizacion['prev_img_miniatura_uri'],
+        "prev_enlace" => "/publicacion/".$previsualizacion['pblc_id'],
+        "prev_medida" => "1x1",
+      ];
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,57 +39,87 @@ class EntradaController extends Controller
     public function index()
     {
         $anuncios_base_url = 'assets/img/core/anuncios/';
-        $previsualizaciones = Array();
+        $previsualizaciones_base_url = 'assets/img/core/anuncios/';
+        $entradas = Array();
 
         $anuncios_grandes = Anuncio::where("anun_medida", "2x1")->get();
         $anuncios_chicos = Anuncio::where("anun_medida", "1x1")->first();
 
-        if (isset($anuncios_grandes) && count($anuncios_grandes) > 0) {
-          $anuncio = $anuncios_grandes[0];
+        $previsualizaciones = Previsualizacion::get();
 
+        if (isset($previsualizaciones) && count($previsualizaciones) > 0) {
+          $contador_preanuncio = 3;
+          for (
+            $i = 0;
+            $i < min([$contador_preanuncio, count($previsualizaciones)]);
+            $i++
+          ) {
+            array_push(
+              $entradas,
+              $this->get_entrada_from_previsualizacion($previsualizaciones[$i])
+            );
+          }
+        }
+
+        if (isset($anuncios_grandes) && count($anuncios_grandes) > 0) {
           array_push(
-            $previsualizaciones,
-            [
-              "prev_tipo" => "ANUNCIO",
-              "anun_id" => $anuncio['anun_id'],
-              "anun_img" => asset($anuncios_base_url . $anuncio['anun_img_cuerpo_uri']),
-              "anun_enlace" => $anuncio['anun_enlace_uri'],
-              "anun_medida" => $anuncio['anun_medida'],
-            ]
+            $entradas,
+            $this->get_entrada_from_anuncio(
+              $anuncios_grandes[0],
+              $anuncios_base_url
+            )
           );
+        }
+
+        if (isset($previsualizaciones) && count($previsualizaciones) > 3) {
+          $contador_preanuncio = 4;
+          for (
+            $i = 3;
+            $i < min([$contador_preanuncio, count($previsualizaciones)]) + 3;
+            $i++
+          ) {
+            array_push(
+              $entradas,
+              $this->get_entrada_from_previsualizacion($previsualizaciones[$i])
+            );
+          }
         }
 
         if (isset($anuncios_grandes) && count($anuncios_grandes) > 1) {
-          $anuncio = $anuncios_grandes[1];
-
           array_push(
-            $previsualizaciones,
-            [
-              "prev_tipo" => "ANUNCIO",
-              "anun_id" => $anuncio['anun_id'],
-              "anun_img" => asset($anuncios_base_url . $anuncio['anun_img_cuerpo_uri']),
-              "anun_enlace" => $anuncio['anun_enlace_uri'],
-              "anun_medida" => $anuncio['anun_medida'],
-            ]
+            $entradas,
+            $this->get_entrada_from_anuncio(
+              $anuncios_grandes[1],
+              $anuncios_base_url
+            )
           );
+        }
+
+        if (isset($previsualizaciones) && count($previsualizaciones) > 8) {
+          $contador_preanuncio = 4;
+          for (
+            $i = 8;
+            $i < min([$contador_preanuncio, count($previsualizaciones)]) + 8;
+            $i++
+          ) {
+            array_push(
+              $entradas,
+              $this->get_entrada_from_previsualizacion($previsualizaciones[$i])
+            );
+          }
         }
 
         if (isset($anuncios_chicos) && count($anuncios_chicos) > 0) {
-          $anuncio = $anuncios_chicos[0];
-
           array_push(
-            $previsualizaciones,
-            [
-              "prev_tipo" => "ANUNCIO",
-              "anun_id" => $anuncio['anun_id'],
-              "anun_img" => asset($anuncios_base_url . $anuncio['anun_img_cuerpo_uri']),
-              "anun_enlace" => $anuncio['anun_enlace_uri'],
-              "anun_medida" => $anuncio['anun_medida'],
-            ]
+            $entradas,
+            $this->get_entrada_from_anuncio(
+              $anuncios_chicos[0],
+              $anuncios_base_url
+            )
           );
         }
 
-        return $previsualizaciones;
+        return $entradas;
     }
 
     /**
