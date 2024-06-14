@@ -19,6 +19,7 @@ class ArchivoController extends Controller
     public function index()
     {
         //
+        return Archivo::all();
     }
 
     /**
