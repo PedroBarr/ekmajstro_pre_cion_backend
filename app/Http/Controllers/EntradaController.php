@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Anuncio;
+use App\Models\Publicacion;
 use App\Models\Previsualizacion;
+use App\Models\TipoRecurso;
 use App\Http\Controllers\Controller;
 
 class EntradaController extends Controller
@@ -22,13 +24,32 @@ class EntradaController extends Controller
     }
 
     private function get_entrada_from_previsualizacion($previsualizacion) {
-      return [
+      $previsualizacion = [
         "prev_tipo" => "PREVISUALIZCION",
         "prev_id" => $previsualizacion['prev_id'],
         "prev_img" => $previsualizacion['prev_img_miniatura_uri'],
+        "prev_resumen" => $previsualizacion['prev_resumen'],
+        "prev_descripcion" => $previsualizacion['prev_descripcion'],
         "prev_enlace" => "/publicacion/".$previsualizacion['pblc_id'],
         "prev_medida" => "1x1",
+        "pblc_id" => $previsualizacion['pblc_id'],
       ];
+
+      $publicacion = Publicacion::find($previsualizacion['pblc_id']);
+
+      $previsualizacion['pblc_titulo'] = $publicacion['pblc_titulo'];
+      $previsualizacion['pblc_etiquetas'] = $publicacion->etiquetas;
+      $recursos = $publicacion->recursos;
+      $previsualizacion['pblc_tipos_recurso'] = Array();
+
+      foreach ($recursos as $recurso) {
+        array_push(
+          $previsualizacion['pblc_tipos_recurso'],
+          TipoRecurso::find($recurso["tp_rec_id"])
+        );
+      }
+
+      return $previsualizacion;
     }
 
     /**

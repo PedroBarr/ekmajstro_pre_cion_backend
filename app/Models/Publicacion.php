@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Publicacion extends Model
 {
@@ -24,12 +25,22 @@ class Publicacion extends Model
     ];
 
     //relaciones
-    public function recursos ( ) {
-        return $this->belongsToMany(Recurso::class);
+    public function recursos ( ): BelongsToMany {
+        return $this->belongsToMany(
+          Recurso::class,
+          'recurso_publicacion',
+          'pblc_id',
+          'rec_id',
+        );
     }
 
-    public function etiquetas ( ) {
-        return $this->belongsToMany(Etiqueta::class);
+    public function etiquetas ( ): BelongsToMany {
+        return $this->belongsToMany(
+          Etiqueta::class,
+          'etiqueta_publicacion',
+          'pblc_id',
+          'etq_id',
+        );
     }
 
     public function previsualizaciones ( ) {

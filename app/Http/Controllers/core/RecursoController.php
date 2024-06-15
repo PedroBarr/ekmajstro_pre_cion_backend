@@ -22,8 +22,7 @@ class RecursoController extends Controller
      */
     public function index()
     {
-        $recursos = Recurso::with(['tipoRecurso:id,nombre'])->paginate(10);
-        return $recursos;
+        return Recurso::all();
     }
 
     /**
@@ -92,8 +91,7 @@ class RecursoController extends Controller
      */
     public function show($id)
     {
-        $recurso = Recurso::with(['tipoRecurso:id,nombre'])->find($id);
-        return $recurso;
+        return Recurso::findOrFail($id);
     }
 
     /**
