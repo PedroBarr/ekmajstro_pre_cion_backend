@@ -25,7 +25,7 @@ class EntradaController extends Controller
 
     private function get_entrada_from_previsualizacion($previsualizacion) {
       $previsualizacion = [
-        "prev_tipo" => "PREVISUALIZCION",
+        "prev_tipo" => "PREVISUALIZACION",
         "prev_id" => $previsualizacion['prev_id'],
         "prev_img" => $previsualizacion['prev_img_miniatura_uri'],
         "prev_resumen" => $previsualizacion['prev_resumen'],
