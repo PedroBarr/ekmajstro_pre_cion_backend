@@ -113,6 +113,21 @@ Route::middleware(['cors'])->group(function ( ) {
       [\App\Http\Controllers\core\PrevisualizacionController::class, 'show']
     )->name('previsualizacion');
 
+    Route::post(
+      "/etiqueta",
+      [\App\Http\Controllers\core\EtiquetaController::class, 'store']
+    )->name('nueva_etiqueta');
+
+    Route::get(
+      "/etiquetas",
+      [\App\Http\Controllers\core\EtiquetaController::class, 'index']
+    )->name('etiquetas');
+
+    Route::get(
+      "/etiqueta/{id}",
+      [\App\Http\Controllers\core\EtiquetaController::class, 'show']
+    )->name('etiqueta');
+
     /*Route::get(
         "/favicon.ico",
         function ( ) {
