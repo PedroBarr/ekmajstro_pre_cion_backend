@@ -45,11 +45,27 @@ class EntradaController extends Controller
       foreach ($recursos as $recurso) {
         array_push(
           $previsualizacion['pblc_tipos_recurso'],
-          TipoRecurso::find($recurso["tp_rec_id"])
+          $this->get_tipo_recurso($recurso["tp_rec_id"])
         );
       }
 
       return $previsualizacion;
+    }
+
+    public function get_tipo_recurso(string $tp_rec_id) {
+      $base_url = 'assets/img/icons/core/tipo_recurso/';
+      $tipo_recurso = TipoRecurso::find($tp_rec_id);
+
+      return [
+        'tp_rec_id' => $tipo_recurso['tp_rec_id'],
+        'tp_rec_nombre' => $tipo_recurso['tp_rec_nombre'],
+        'tp_rec_icon_url' => asset(
+          $base_url.
+          $tipo_recurso['tp_rec_diminutivo'].
+          '.svg'
+        ),
+        'tp_rec_filter_key' => $tipo_recurso['tp_rec_diminutivo'],
+      ];
     }
 
     /**
@@ -92,8 +108,7 @@ class EntradaController extends Controller
         }
 
         if (
-          isset($anuncios_grandes) &&
-          count($anuncios_grandes) > 0 &&
+          isset($anuncio_acerca_de) &&
           isset($previsualizaciones) &&
           count($previsualizaciones) >= 3
         ) {
@@ -131,7 +146,7 @@ class EntradaController extends Controller
 
         if (
           isset($anuncios_grandes) &&
-          count($anuncios_grandes) > 1 &&
+          count($anuncios_grandes) > 0 &&
           isset($previsualizaciones) &&
           count($previsualizaciones) >= 13
         ) {
