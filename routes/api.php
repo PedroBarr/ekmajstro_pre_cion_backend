@@ -128,6 +128,16 @@ Route::middleware(['cors'])->group(function ( ) {
       [\App\Http\Controllers\core\EtiquetaController::class, 'show']
     )->name('etiqueta');
 
+    Route::post(
+      "/seccion",
+      [\App\Http\Controllers\core\SeccionController::class, 'store']
+    )->name('nueva_seccion');
+
+    Route::post(
+      "/segmento",
+      [\App\Http\Controllers\core\SegmentoController::class, 'store']
+    )->name('nuevo_segmento');
+
     /*Route::get(
         "/favicon.ico",
         function ( ) {
