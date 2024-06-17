@@ -152,5 +152,10 @@ Route::middleware(['cors'])->group(function ( ) {
     Route::get(
       "/entradas",
       [\App\Http\Controllers\EntradaController::class, 'index']
-    )->name('get_entrada_list');
+    )->name('entradas');
+
+    Route::get(
+      "/entrada/{id}",
+      [\App\Http\Controllers\EntradaController::class, 'show']
+    )->name('entrada');
 });

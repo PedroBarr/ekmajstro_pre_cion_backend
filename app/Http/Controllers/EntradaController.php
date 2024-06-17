@@ -185,7 +185,13 @@ class EntradaController extends Controller
      */
     public function show($id)
     {
-        //
+        $publicacion = Publicacion::find($id);
+        return [
+          "id" => $publicacion->pblc_id,
+          "titulo" => $publicacion->pblc_titulo,
+          "portada" => $publicacion->pblc_img_portada_uri,
+          "fecha_publicacion" => $publicacion->pblc_fecha_publicacion,
+        ];
     }
 
     /**
