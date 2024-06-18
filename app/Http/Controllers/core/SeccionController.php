@@ -61,6 +61,8 @@ class SeccionController extends Controller
             $respuesta_segmento = $segmento_controlador->store($solicitud, true);
             array_push($segmentos, $respuesta_segmento);
           }
+
+          $seccion["segmentos"] = $segmentos;
         }
 
         return $seccion;
