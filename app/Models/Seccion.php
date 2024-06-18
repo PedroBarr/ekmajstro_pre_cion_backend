@@ -28,7 +28,10 @@ class Seccion extends Model
     }
 
     public function segmentos ( ) {
-        return $this->hasMany(Segmento::class);
+        return $this->hasMany(
+          Segmento::class,
+          'secc_id',
+        );
     }
 
     public function secciones_marcadas ( ) {

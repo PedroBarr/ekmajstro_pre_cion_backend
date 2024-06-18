@@ -48,7 +48,10 @@ class Publicacion extends Model
     }
 
     public function secciones ( ) {
-        return $this->hasMany(Seccion::class);
+        return $this->hasMany(
+          Seccion::class,
+          'pblc_id',
+        )->with('segmentos');
     }
 
     public function secciones_marcadas ( ) {

@@ -192,6 +192,7 @@ class EntradaController extends Controller
           "portada" => $publicacion->pblc_img_portada_uri,
           "fecha_publicacion" => $publicacion->pblc_fecha_publicacion,
           "etiquetas" => $publicacion->etiquetas,
+          "secciones" => $publicacion->secciones,
         ];
     }
 
