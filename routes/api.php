@@ -99,6 +99,11 @@ Route::middleware(['cors'])->group(function ( ) {
     )->name('publicacion');
 
     Route::post(
+      "/publicacion/etiqueta",
+      [\App\Http\Controllers\core\PublicacionController::class, 'etiquetar']
+    )->name('etiquetar_publicacion');
+
+    Route::post(
       "/previsualizacion",
       [\App\Http\Controllers\core\PrevisualizacionController::class, 'store']
     )->name('nueva_previsualizacion');

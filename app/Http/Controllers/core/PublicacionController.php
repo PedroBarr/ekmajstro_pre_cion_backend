@@ -7,9 +7,11 @@ use App\Http\Controllers\core\SeccionController;
 
 use App\Models\Publicacion;
 use App\Models\SeccionMarcada;
+use App\Models\EtiquetaPublicacion;
 
 use Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PublicacionController extends Controller
 {
@@ -23,15 +25,43 @@ class PublicacionController extends Controller
         return Publicacion::all();
     }
 
+    public function etiquetar(Request $request, ?bool $from_inner = False)
+    {
+        $datos = $request->all();
+        $contenido = null;
+
+        if ($from_inner)
+          $contenido = json_decode(key($datos), true);
+        else
+          $contenido = $request->json($datos);
+
+        $pblc_id = $contenido["publicacion"];
+        $etq_id = $contenido["etiqueta"];
+
+        $resultado = DB::table('etiqueta_publicacion')->insert([
+          "pblc_id" => $pblc_id,
+          "etq_id" => $etq_id,
+        ]);
+
+        return Response::json(htmlspecialchars("¡Éxito!"));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, ?bool $from_inner = False)
     {
-        $contenido = $request->json($request->all());
+        $datos = $request->all();
+        $contenido = null;
+
+        if ($from_inner)
+          $contenido = json_decode(key($datos), true);
+        else
+          $contenido = $request->json($datos);
+
         $publicaciones_base_url = 'assets/img/core/publicaciones/';
 
         $pblc_titulo = $contenido["titulo"];
