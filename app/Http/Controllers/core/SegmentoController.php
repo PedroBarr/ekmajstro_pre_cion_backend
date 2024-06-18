@@ -26,9 +26,15 @@ class SegmentoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, ?bool $from_inner = False)
     {
-        $contenido = $request->json($request->all());
+        $datos = $request->all();
+        $contenido = null;
+
+        if ($from_inner)
+          $contenido = json_decode(key($datos), true);
+        else
+          $contenido = $request->json($datos);
 
         $segmento = Segmento::create([
           "segm_medida" => $contenido["medida"],
@@ -38,7 +44,6 @@ class SegmentoController extends Controller
         ]);
 
         return $segmento;
-        //return $contenido["contenido"];
     }
 
     /**
