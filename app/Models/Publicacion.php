@@ -51,7 +51,11 @@ class Publicacion extends Model
         return $this->hasMany(
           Seccion::class,
           'pblc_id',
-        )->with('segmentos');
+        )
+          ->with('segmentos')
+          ->withExists('secciones_marcadas')
+          ->orderBy('secciones_marcadas_exists', 'desc')
+        ;
     }
 
     public function secciones_marcadas ( ) {

@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Support\Facades\DB;
+
 class Seccion extends Model
 {
     use HasFactory;
@@ -31,10 +33,15 @@ class Seccion extends Model
         return $this->hasMany(
           Segmento::class,
           'secc_id',
-        );
+        )
+          ->orderBy('segm_posicion')
+        ;
     }
 
     public function secciones_marcadas ( ) {
-        return $this->hasMany(SeccionMarcada::class);
+        return $this->hasMany(
+          SeccionMarcada::class,
+          'secc_id',
+        );
     }
 }
