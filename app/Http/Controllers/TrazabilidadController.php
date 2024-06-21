@@ -421,6 +421,7 @@ class TrazabilidadController extends Controller
             "Redactar publicaci&oacute;n de La Rosa Blanca",
             "Agregar sobreescritura del consigna",
           ],
+          "uri_separador" => asset($base_url.'icons/core/ekmajstro.svg'),
         ]),
       ];
       
@@ -443,6 +444,7 @@ class TrazabilidadController extends Controller
             "Agregar m&oacute;dulos de ense&ntilde;anza",
             "Corregir enrutamiento",
           ],
+          "uri_separador" => asset($base_url.'icons/core/al.svg'),
         ]),
       ];
 
