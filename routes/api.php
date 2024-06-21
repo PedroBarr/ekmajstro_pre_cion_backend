@@ -170,7 +170,13 @@ Route::middleware(['cors'])->group(function ( ) {
     )->name('entradas');
 
     Route::get(
+        "/entrada/acerca_de",
+        [\App\Http\Controllers\TrazabilidadController::class, 'entrada_acerca_de']
+    )->name('entrada_acerca_de');
+
+    Route::get(
       "/entrada/{id}",
       [\App\Http\Controllers\EntradaController::class, 'show']
     )->name('entrada');
+
 });
