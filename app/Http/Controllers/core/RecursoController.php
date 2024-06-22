@@ -43,7 +43,7 @@ class RecursoController extends Controller
 
       $archivo_controller = new ArchivoController();
       $response = $archivo_controller->store($request);
-      $archivo = $response->original->original;
+      $archivo = $response->original;
 
       $especificacion_recurso = EspecificacionRecurso::create([
         "espc_descripcin" => $espc_descripcin,
@@ -69,7 +69,7 @@ class RecursoController extends Controller
         "arch_id" => $archivo["id"],
       ]);
 
-      $respuesta = Response::make(Response::json([
+      $respuesta = Response::json([
           "rec_nombre" => $recurso->rec_nombre,
           "rec_diminutivo" => $recurso->rec_diminutivo,
           "espc_descripcion" => $especificacion_recurso->espc_descripcin,
@@ -77,9 +77,8 @@ class RecursoController extends Controller
           "tp_perm_nombre" => $tipo_permiso->tp_perm_nombre,
           "arch_nombre" => $archivo["nombre"],
           "arch_uri" => $archivo["uri"],
-      ]), 200);
+      ]);
 
-      $respuesta->header("Content-Type","application/json");
       return $respuesta;
     }
 

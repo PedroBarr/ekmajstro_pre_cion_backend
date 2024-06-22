@@ -14,14 +14,11 @@ class TrazabilidadController extends Controller
      */
     public function index()
     {
-        $trazabilidad = $this->trazabilidad("Ekmajstro");
-        $respuesta = Response::make($trazabilidad, 200);
-        $respuesta->header("Content-Type","application/json");
-
-        return $respuesta;
+        return $this->trazabilidad("Ekmajstro");
     }
 
-    private function trazabilidad ($especificador) {
+    public function trazabilidad (string $especificador = '') {
+
         $trazabilidad_Ekmajstro = function() {
             return Response::json([
                 "nombre" => "Ekmajstro Pre Cion",
@@ -31,16 +28,23 @@ class TrazabilidadController extends Controller
                 "descripcion" => "Ekmajstro Pre Cion es una bitacora ".
                     "personal que expone diferetes materiales producidos ".
                     "por el autor de la bitacora, Pedro Barr.",
-                "entrada" => $this->entrada_acerca_de(),
+                "entrada" => $this->entrada_acerca_de()->original,
             ]);
         };
-        if ($especificador == "Ekmajstro")
+
+        if (strtolower($especificador) == "ekmajstro")
           return $trazabilidad_Ekmajstro();
+
+        if (strtolower($especificador) == "social")
+          return $this->social();
+
+        if (strtolower($especificador) == "entrada")
+          return $this->entrada_acerca_de();
 
         return Response::json([]);
     }
 
-    public function social()
+    private function social()
     {
         $base_url = 'assets/img/icons/core/trazabilidad/social/';
         $social = Response::json(Array(
@@ -161,7 +165,7 @@ class TrazabilidadController extends Controller
           "alternativo" => "",
         ]),
       ];
-      
+
       $segmn_acerca_de_dats_1 = [
         "segm_medida" => "1-col",
         "segm_posicion" => 0,
@@ -170,7 +174,7 @@ class TrazabilidadController extends Controller
           "contenido" => "Origen",
         ]),
       ];
-      
+
       $segmn_acerca_de_dats_2 = [
         "segm_medida" => "2-col",
         "segm_posicion" => 1,
@@ -190,7 +194,7 @@ class TrazabilidadController extends Controller
           ),
         ]),
       ];
-      
+
       $segmn_acerca_de_dats_3 = [
         "segm_medida" => "2-col",
         "segm_posicion" => 2,
@@ -201,7 +205,7 @@ class TrazabilidadController extends Controller
           "alternativo" => "&Iacute;cono de Ekcio"
         ]),
       ];
-      
+
       $segmn_acerca_de_dats_4 = [
         "segm_medida" => "1-col",
         "segm_posicion" => 3,
@@ -229,7 +233,7 @@ class TrazabilidadController extends Controller
           ),
         ]),
       ];
-      
+
       $segmn_acerca_de_dats_5 = [
         "segm_medida" => "2-col",
         "segm_posicion" => 4,
@@ -255,7 +259,7 @@ class TrazabilidadController extends Controller
           ),
         ]),
       ];
-      
+
       $segmn_acerca_de_dats_6 = [
         "segm_medida" => "2-col",
         "segm_posicion" => 5,
@@ -266,7 +270,7 @@ class TrazabilidadController extends Controller
           "alternativo" => "Bandera y escudo ficticios del esperanto"
         ]),
       ];
-      
+
       $segmn_acerca_de_dats_7 = [
         "segm_medida" => "2-col",
         "segm_posicion" => 6,
@@ -275,7 +279,7 @@ class TrazabilidadController extends Controller
           "contenido" => "Misi&oacute;n",
         ]),
       ];
-      
+
       $segmn_acerca_de_dats_8 = [
         "segm_medida" => "2-col",
         "segm_posicion" => 7,
@@ -284,7 +288,7 @@ class TrazabilidadController extends Controller
           "contenido" => "Visi&oacute;n",
         ]),
       ];
-      
+
       $segmn_acerca_de_dats_9 = [
         "segm_medida" => "2-col",
         "segm_posicion" => 8,
@@ -298,7 +302,7 @@ class TrazabilidadController extends Controller
           ),
         ]),
       ];
-      
+
       $segmn_acerca_de_dats_10 = [
         "segm_medida" => "2-col",
         "segm_posicion" => 9,
@@ -312,7 +316,7 @@ class TrazabilidadController extends Controller
           ),
         ]),
       ];
-      
+
       $segmn_acerca_de_col_1 = [
         "segm_medida" => "1-col",
         "segm_posicion" => 0,
@@ -321,7 +325,7 @@ class TrazabilidadController extends Controller
           "contenido" => "Pedro Barr.",
         ]),
       ];
-      
+
       $segmn_acerca_de_col_2 = [
         "segm_medida" => "2-col",
         "segm_posicion" => 1,
@@ -332,7 +336,7 @@ class TrazabilidadController extends Controller
           "alternativo" => "Foto cortada de Pedro Barr.",
         ]),
       ];
-      
+
       $segmn_acerca_de_col_3 = [
         "segm_medida" => "2-col",
         "segm_posicion" => 2,
@@ -351,7 +355,7 @@ class TrazabilidadController extends Controller
           "clase" => "vert-cent-texto horiz-cent-texto",
         ]),
       ];
-      
+
       $segmn_acerca_de_col_4 = [
         "segm_medida" => "1-col",
         "segm_posicion" => 3,
@@ -360,7 +364,7 @@ class TrazabilidadController extends Controller
           "contenido" => "Alta Lengua",
         ]),
       ];
-      
+
       $segmn_acerca_de_col_5 = [
         "segm_medida" => "2-col",
         "segm_posicion" => 4,
@@ -375,7 +379,7 @@ class TrazabilidadController extends Controller
           "clase" => "vert-cent-texto horiz-cent-texto",
         ]),
       ];
-      
+
       $segmn_acerca_de_col_6 = [
         "segm_medida" => "2-col",
         "segm_posicion" => 5,
@@ -386,7 +390,7 @@ class TrazabilidadController extends Controller
           "alternativo" => "&Iacute; p&uacuteblico de Alta Lengua",
         ]),
       ];
-      
+
       $segmn_acerca_de_prox_1 = [
         "segm_medida" => "2-col",
         "segm_posicion" => 0,
@@ -395,7 +399,7 @@ class TrazabilidadController extends Controller
           "contenido" => "Mallonga limtempo",
         ]),
       ];
-      
+
       $segmn_acerca_de_prox_2 = [
         "segm_medida" => "2-col",
         "segm_posicion" => 1,
@@ -404,7 +408,7 @@ class TrazabilidadController extends Controller
           "contenido" => "Longtempa",
         ]),
       ];
-      
+
       $segmn_acerca_de_prox_3 = [
         "segm_medida" => "2-col",
         "segm_posicion" => 2,
@@ -423,7 +427,7 @@ class TrazabilidadController extends Controller
           "uri_separador" => asset($base_url.'icons/core/ekmajstro.svg'),
         ]),
       ];
-      
+
       $segmn_acerca_de_prox_4 = [
         "segm_medida" => "2-col",
         "segm_posicion" => 3,

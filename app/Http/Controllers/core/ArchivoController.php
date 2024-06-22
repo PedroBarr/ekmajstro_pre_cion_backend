@@ -60,16 +60,15 @@ class ArchivoController extends Controller
           "arch_name" => $archivo_nombre,
         ]);
 
-        $respuesta = Response::make(Response::json([
+        $respuesta = Response::json([
             "nombre" => $archivo_nombre,
             "extension" => $archivo_extension,
             "mimetismo" => $archivo_mimetismo,
             "medida" => $archivo_medida,
             "uri" => $archivo_uri,
             "id" => $archivo_entidad->arch_id,
-        ]), 200);
+        ]);
 
-        $respuesta->header("Content-Type","application/json");
         return $respuesta;
     }
 

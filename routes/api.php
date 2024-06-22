@@ -44,9 +44,9 @@ Route::middleware(['cors'])->group(function ( ) {
     )->name('acerca_de');
 
     Route::get(
-      "/trazabilidad/social",
-      [\App\Http\Controllers\TrazabilidadController::class, 'social']
-    )->name('get_social_data');
+      "/trazabilidad/{especificador?}",
+      [\App\Http\Controllers\TrazabilidadController::class, 'trazabilidad']
+    )->name('obtener_trazabilidad');
 
     Route::post(
         "/recurso",
@@ -76,12 +76,12 @@ Route::middleware(['cors'])->group(function ( ) {
     Route::get(
         "/archivo/{id}",
         [\App\Http\Controllers\core\ArchivoController::class, 'show']
-    )->name('obtener_archivo');
+    )->name('archivo');
 
     Route::get(
       "/tipo_recursos",
       [\App\Http\Controllers\core\TipoRecursoController::class, 'index']
-    )->name('get_tipo_recurso_list');
+    )->name('tipos_recurso');
 
     Route::post(
       "/publicacion",
