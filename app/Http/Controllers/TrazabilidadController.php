@@ -419,7 +419,6 @@ class TrazabilidadController extends Controller
             "Redactar publicaci&oacute;n de For the Damaged Coda",
             "Corregir estilos",
             "Redactar publicaci&oacute;n de La Rosa Blanca",
-            "Agregar sobreescritura del consigna",
           ],
           "uri_separador" => asset($base_url.'icons/core/ekmajstro.svg'),
         ]),
