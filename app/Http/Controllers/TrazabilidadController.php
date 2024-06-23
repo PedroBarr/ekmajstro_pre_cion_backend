@@ -118,7 +118,6 @@ class TrazabilidadController extends Controller
     }
 
     public function entrada_acerca_de ( ) {
-      // https://www.toptal.com/designers/htmlarrows/letters/
       $base_url = 'assets/img/';
 
       $segmn_acerca_de_desc_1 = [

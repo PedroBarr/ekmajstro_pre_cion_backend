@@ -31,10 +31,19 @@ class SegmentoController extends Controller
         $datos = $request->all();
         $contenido = null;
 
+        //return $datos;
         if ($from_inner)
           $contenido = json_decode(key($datos), true);
-        else
-          $contenido = $request->json($datos);
+        else {
+          if (count($datos) == 1)
+            $contenido = $request->json($datos);
+          else {
+            $contenido = json_decode(json_encode($datos), true);
+            $contenido["contenido"] = json_decode(
+              $contenido["contenido"], true
+            );
+          }
+        }
 
         $segmento = Segmento::create([
           "segm_medida" => $contenido["medida"],
