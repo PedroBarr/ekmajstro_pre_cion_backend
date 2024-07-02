@@ -29,7 +29,13 @@ class Recurso extends Model
 
     //relaciones
     public function tipos ( ) {
-        return $this->belongsTo(TipoRecurso::class);
+        return $this
+            ->belongsTo(
+                TipoRecurso::class,
+                'tp_rec_id',
+                'tp_rec_id'
+            )
+        ;
     }
 
     public function especificaciones ( ) {
@@ -41,7 +47,13 @@ class Recurso extends Model
     }
 
     public function archivos ( ) {
-        return $this->belongsTo(Archivo::class);
+        return $this
+            ->belongsTo(
+                Archivo::class,
+                'arch_id',
+                'arch_id'
+            )
+        ;
     }
 
     public function publicaciones ( ) {

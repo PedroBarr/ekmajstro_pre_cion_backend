@@ -42,11 +42,17 @@ class EntradaController extends Controller
       $recursos = $publicacion->recursos;
       $previsualizacion['pblc_tipos_recurso'] = Array();
 
+      $tipos_recursos_agregados = Array();
+
       foreach ($recursos as $recurso) {
-        array_push(
-          $previsualizacion['pblc_tipos_recurso'],
-          $this->get_tipo_recurso($recurso["tp_rec_id"])
-        );
+        if (!isset($tipos_recursos_agregados[$recurso["tp_rec_id"]])) {
+          array_push(
+            $previsualizacion['pblc_tipos_recurso'],
+            $this->get_tipo_recurso($recurso["tp_rec_id"])
+          );
+          
+          $tipos_recursos_agregados[$recurso["tp_rec_id"]] = true;
+        }
       }
 
       return $previsualizacion;
@@ -79,7 +85,28 @@ class EntradaController extends Controller
         $previsualizaciones_base_url = 'assets/img/core/anuncios/';
         $entradas = Array();
 
-        $previsualizaciones = Previsualizacion::get();
+        $previsualizaciones = Previsualizacion
+          ::with('publicaciones')
+          ->orderBy(Publicacion::select('pblc_fecha_publicacion')->whereColumn('publicaciones.pblc_id', 'previsualizaciones.pblc_id'), 'DESC')
+          ->orderByRaw('
+            (
+              SELECT
+                count(SEGM.segm_id)
+              FROM
+                publicaciones AS PBLC,
+                secciones AS SECC,
+                segmentos AS SEGM
+              WHERE
+                PBLC.pblc_id = SECC.pblc_id AND
+                SECC.secc_id = SEGM.secc_id AND
+                      PBLC.pblc_id = previsualizaciones.prev_id
+              GROUP BY
+                PBLC.pblc_id
+            )
+            DESC
+          ')
+          ->get()
+        ;
 
         $anuncio_acerca_de = Anuncio
           ::where("anun_enlace_uri", "/acerca_de")
@@ -193,6 +220,7 @@ class EntradaController extends Controller
           "fecha_publicacion" => $publicacion->pblc_fecha_publicacion,
           "etiquetas" => $publicacion->etiquetas,
           "secciones" => $publicacion->secciones,
+          "recursos" => $publicacion->recursos_con_tipo,
         ];
     }
 

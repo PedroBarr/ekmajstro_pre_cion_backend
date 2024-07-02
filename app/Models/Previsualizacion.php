@@ -33,4 +33,29 @@ class Previsualizacion extends Model
     public function publicaciones ( ) {
         return $this->belongsTo(Publicacion::class);
     }
+
+    public function fechas_publicaciones ( ) {
+        return $this
+            ->belongsTo(
+                Publicacion::class,
+                'pblc_id',
+                'pblc_id'
+            )
+            ->select(
+                'pblc_id',
+                'pblc_fecha_publicacion'
+            )
+        ;
+    }
+    
+    public function segmentos_publicaciones ( ) {
+        return $this
+            ->belongsTo(
+                Publicacion::class,
+                'pblc_id',
+                'pblc_id'
+            )
+            ->with('segmentos')
+        ;
+    }
 }

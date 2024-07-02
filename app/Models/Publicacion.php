@@ -65,4 +65,27 @@ class Publicacion extends Model
     public function cajas_comentarios_marcadas ( ) {
         return $this->hasMany(CajaComentariosMarcada::class);
     }
+
+    public function segmentos ( ) {
+        return $this->hasMany(
+          Seccion::class,
+          'pblc_id',
+        )
+          ->with('segmentos')
+        ;
+    }
+
+    //relaciones
+    public function recursos_con_tipo ( ): BelongsToMany {
+      return $this
+        ->belongsToMany(
+          Recurso::class,
+          'recurso_publicacion',
+          'pblc_id',
+          'rec_id',
+        )
+        ->with('tipos')
+        ->with('archivos')
+      ;
+  }
 }
