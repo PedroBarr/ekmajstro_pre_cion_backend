@@ -48,6 +48,11 @@ Route::middleware(['cors'])->group(function ( ) {
       [\App\Http\Controllers\TrazabilidadController::class, 'trazabilidad']
     )->name('obtener_trazabilidad');
 
+    Route::get(
+      "/emergentes/imagenes",
+      [\App\Http\Controllers\EmergenteController::class, 'images']
+    )->name('elementos_emergente_imagenes');
+
     Route::post(
         "/recurso",
         [\App\Http\Controllers\core\RecursoController::class, 'store']
