@@ -386,7 +386,7 @@ class TrazabilidadController extends Controller
           "tipo" => "imagen",
           "contenido" => asset($base_url.'icons/core/al.svg'),
           "clase" => "circ_img peq-medd",
-          "alternativo" => "&Iacute; p&uacuteblico de Alta Lengua",
+          "alternativo" => "&Iacute;cono p&uacute;blico de Alta Lengua",
         ]),
       ];
 
@@ -416,10 +416,8 @@ class TrazabilidadController extends Controller
           "contenido" => [
             "Agregar recursos compartidos",
             "Redactar publicaci&oacute;n de la saga de apocalipsis",
-            "Agregar emergentes im&aacute;genes",
-            "Redactar publicaci&oacute;n de Max Power",
             "Agregar emergentes previsualizaci&oacute;n",
-            "Redactar publicaci&oacute;n de For the Damaged Coda",
+            "Redactar publicaci&oacute;n de Jesus (Queen)",
             "Corregir estilos",
             "Redactar publicaci&oacute;n de La Rosa Blanca",
           ],
