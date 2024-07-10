@@ -414,8 +414,6 @@ class TrazabilidadController extends Controller
         "segm_contenido" => json_encode([
           "tipo" => "lista",
           "contenido" => [
-            "Agregar recursos compartidos",
-            "Redactar publicaci&oacute;n de la saga de apocalipsis",
             "Agregar emergentes previsualizaci&oacute;n",
             "Redactar publicaci&oacute;n de Jesus (Queen)",
             "Corregir estilos",

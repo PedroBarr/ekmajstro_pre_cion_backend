@@ -26,7 +26,7 @@ Route::middleware(['cors'])->group(function ( ) {
                 "nombre" => "Bitacora Ekmajstro Pre Cion"
             ]);*/
             $index = Response::json(htmlspecialchars(
-                "Bitacora Ekmajstro Pre Cion"
+                "Bitacora Ekmajstro Pre &Ccirc;ion"
             ));
 
             $respuesta = Response::make($index, 200);
