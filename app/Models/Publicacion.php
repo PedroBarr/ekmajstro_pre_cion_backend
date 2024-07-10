@@ -87,5 +87,20 @@ class Publicacion extends Model
         ->with('tipos')
         ->with('archivos')
       ;
-  }
+    }
+    
+    //relaciones
+    public function recursos_con_todo ( ): BelongsToMany {
+      return $this
+        ->belongsToMany(
+          Recurso::class,
+          'recurso_publicacion',
+          'pblc_id',
+          'rec_id',
+        )
+        ->with('tipos')
+        ->with('archivos')
+        ->with('especificaciones')
+      ;
+    }
 }

@@ -39,7 +39,13 @@ class Recurso extends Model
     }
 
     public function especificaciones ( ) {
-        return $this->belongsTo(EspecificacionRecurso::class);
+        return $this
+            ->belongsTo(
+                EspecificacionRecurso::class,
+                'espc_id',
+                'espc_id'
+            )
+        ;
     }
 
     public function permisos ( ) {

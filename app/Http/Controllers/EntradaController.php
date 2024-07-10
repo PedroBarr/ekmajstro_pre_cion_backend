@@ -220,7 +220,7 @@ class EntradaController extends Controller
           "fecha_publicacion" => $publicacion->pblc_fecha_publicacion,
           "etiquetas" => $publicacion->etiquetas,
           "secciones" => $publicacion->secciones,
-          "recursos" => $publicacion->recursos_con_tipo,
+          "recursos" => $publicacion->recursos_con_todo,
         ];
     }
 
