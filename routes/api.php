@@ -53,6 +53,11 @@ Route::middleware(['cors'])->group(function ( ) {
       [\App\Http\Controllers\EmergenteController::class, 'images']
     )->name('elementos_emergente_imagenes');
 
+    Route::get(
+      "/emergentes/previsualizacion",
+      [\App\Http\Controllers\EmergenteController::class, 'preview']
+    )->name('elementos_emergente_previsualizacion');
+
     Route::post(
         "/recurso",
         [\App\Http\Controllers\core\RecursoController::class, 'store']

@@ -70,4 +70,14 @@ class EmergenteController extends Controller
         'icono_izquierdo_url' => asset($base_url.'fairy'.'.svg')
       ];
     }
+    
+    public function preview () {
+      $base_url = 'assets/img/core/emergentes/previsualizacion/';
+      
+      return [
+        'decoracion_url' => asset($base_url.'decoracion'.'.png'),
+        'icono_url' => asset($base_url.'ekmajstro'.'.svg'),
+        'color_marco' => '#fce55b',
+      ];
+    }
 }
