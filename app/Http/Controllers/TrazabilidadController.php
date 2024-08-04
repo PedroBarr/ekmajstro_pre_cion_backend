@@ -414,8 +414,14 @@ class TrazabilidadController extends Controller
         "segm_contenido" => json_encode([
           "tipo" => "lista",
           "contenido" => [
-            "Corregir estilos",
-            "Redactar publicaci&oacute;n de La Rosa Blanca",
+            "Dise&ntilde;ar contenido y recursos",
+            "Redactar publicaci&oacute;n de Legión, Delirios Sociales",
+            "Agregar p&aacute;gina ignota",
+            "Redactar publicaci&oacute;n de Los Siete maridos de Evelyn Hugo",
+            "Agregar conexi&oacute;n aplicativo Qt y Flutter",
+            "Redactar publicaci&oacute;n de For the Damaged Coda",
+            "Agregar dise&ntilde;o responsivo",
+            "Redactar publicaci&oacute;n de Inteligencia Artificial",
           ],
           "uri_separador" => asset($base_url.'icons/core/ekmajstro.svg'),
         ]),
@@ -427,15 +433,11 @@ class TrazabilidadController extends Controller
         "segm_contenido" => json_encode([
           "tipo" => "lista",
           "contenido" => [
-            "Dise&ntilde;ar contenido y recursos",
             "Agregar anuncios",
             "Agregar filtros",
             "Agregar b&uacute;squeda",
-            "Agregar p&aacute;gina ignota",
             "Agregar cajas de comentarios",
             "Agregar traducci&oacute;n a esperanto",
-            "Agregar conexi&oacute;n aplicativo Qt y Flutter",
-            "Agregar dise&ntilde;o responsivo",
             "Agregar dise&ntilde;o paginaci&oacute;n",
             "Agregar m&oacute;dulos de ense&ntilde;anza",
             "Corregir enrutamiento",
