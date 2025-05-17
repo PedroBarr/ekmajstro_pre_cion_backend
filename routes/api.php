@@ -153,6 +153,11 @@ Route::middleware(['cors'])->group(function ( ) {
       [\App\Http\Controllers\core\SegmentoController::class, 'store']
     )->name('nuevo_segmento');
 
+    Route::get(
+      "/404",
+      [\App\Http\Controllers\TrazabilidadController::class, 'ignota']
+    )->name('ignota');
+
     /*Route::get(
         "/favicon.ico",
         function ( ) {

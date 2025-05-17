@@ -511,4 +511,18 @@ class TrazabilidadController extends Controller
       return Response::json($entrada);
     }
 
+    public function ignota() {
+      return Response::json([
+        "error" => "404",
+        "titulo" => "P&aacute;gina ignota",
+        "mensaje" => "Error 404: P&aacute;gina no encontrada",
+        "icono" => asset('assets/img/icons/core/ekmajstro.svg'),
+        "descripcion" => (
+          "La p&aacute;gina que buscas no existe o no se encuentra " .
+          "disponible. Si crees que esto es un error, por favor " .
+          "contacta al administrador del sitio."
+        ),
+      ]);
+    }
+
 }
