@@ -416,7 +416,6 @@ class TrazabilidadController extends Controller
           "contenido" => [
             "Dise&ntilde;ar contenido y recursos",
             "Redactar publicaci&oacute;n de Legión, Delirios Sociales",
-            "Agregar p&aacute;gina ignota",
             "Redactar publicaci&oacute;n de Los Siete maridos de Evelyn Hugo",
             "Agregar conexi&oacute;n aplicativo Qt y Flutter",
             "Redactar publicaci&oacute;n de For the Damaged Coda",
