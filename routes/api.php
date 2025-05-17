@@ -194,4 +194,8 @@ Route::middleware(['cors'])->group(function ( ) {
       [\App\Http\Controllers\EntradaController::class, 'show']
     )->name('entrada');
 
+    Route::fallback(function () {
+        return redirect('/api/404');
+    });
+
 });
