@@ -113,6 +113,16 @@ Route::middleware(['cors'])->group(function ( ) {
       [\App\Http\Controllers\core\PublicacionController::class, 'etiquetar']
     )->name('etiquetar_publicacion');
 
+    Route::put(
+      "/publicacion/{id}",
+      [\App\Http\Controllers\core\PublicacionController::class, 'update']
+    )->name('editar_publicacion');
+
+    Route::post(
+      "/publicacion/actualizar",
+      [\App\Http\Controllers\core\PublicacionController::class, 'upgrade']
+    )->name('actualizar_publicacion');
+
     Route::post(
       "/previsualizacion",
       [\App\Http\Controllers\core\PrevisualizacionController::class, 'store']

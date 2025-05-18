@@ -43,7 +43,7 @@ class PublicacionController extends Controller
           "etq_id" => $etq_id,
         ]);
 
-        return Response::json(htmlspecialchars("¡Éxito!"));
+        return Response::json(htmlspecialchars("ï¿½ï¿½xito!"));
     }
 
     /**
@@ -128,6 +128,21 @@ class PublicacionController extends Controller
     }
 
     /**
+     * Upgrade a resource in storage
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function upgrade(Request $request) {
+      $datos = $request->all();
+      $contenido = $request->json($datos);
+
+      $id = $contenido["id"];
+
+      return $this->update($request, $id);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -136,7 +151,38 @@ class PublicacionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $datos = $request->all();
+        $contenido = $datos;
+
+        $publicacion = $this->show($id);
+
+        $diccionario = $this->getDictAttributes();
+
+        foreach ($diccionario as $propiedad => $clave) {
+          if (isset($contenido[$clave]))
+            $this->editValue($publicacion, $propiedad, $contenido[$clave]);
+        }
+
+        return $this->show($id);
+    }
+
+    private function getDictAttributes() {
+      return [
+        'pblc_titulo' => 'pblc_titulo',
+        'pblc_titulo' => 'titulo',
+        'pblc_img_portada_uri' => 'pblc_img_portada_uri',
+        'pblc_img_portada_uri' => 'imagen',
+        'pblc_img_portada_uri' => 'portada',
+      ];
+    }
+
+    private function editValue(Publicacion $publicacion, String $clave, Mixed $valor) {
+      switch ($clave) {
+        default:
+          Publicacion::findOrFail($publicacion->pblc_id)
+            ->update([$clave => $valor]);
+          break;
+      }
     }
 
     /**
