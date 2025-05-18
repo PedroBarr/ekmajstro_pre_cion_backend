@@ -158,7 +158,7 @@ class PublicacionController extends Controller
 
         $diccionario = $this->getDictAttributes();
 
-        foreach ($diccionario as $propiedad => $clave) {
+        foreach ($diccionario as $clave => $propiedad) {
           if (isset($contenido[$clave]))
             $this->editValue($publicacion, $propiedad, $contenido[$clave]);
         }
@@ -169,10 +169,10 @@ class PublicacionController extends Controller
     private function getDictAttributes() {
       return [
         'pblc_titulo' => 'pblc_titulo',
-        'pblc_titulo' => 'titulo',
+        'titulo' => 'pblc_titulo',
         'pblc_img_portada_uri' => 'pblc_img_portada_uri',
-        'pblc_img_portada_uri' => 'imagen',
-        'pblc_img_portada_uri' => 'portada',
+        'imagen' => 'pblc_img_portada_uri',
+        'portada' => 'pblc_img_portada_uri',
       ];
     }
 
