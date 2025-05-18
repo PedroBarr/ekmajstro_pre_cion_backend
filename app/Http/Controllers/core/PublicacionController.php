@@ -66,7 +66,7 @@ class PublicacionController extends Controller
         $publicaciones_base_url = 'assets/img/core/publicaciones/';
 
         $pblc_titulo = $contenido["titulo"];
-        $pblc_img_portada_uri = $contenido["portada_uri"] | $contenido["imagen"];
+        $pblc_img_portada_uri = $contenido["portada_uri"] ?? $contenido["imagen"];
         $pblc_fecha_publicacion = date("Y-m-d");
 
         $publicacion = Publicacion::create([
