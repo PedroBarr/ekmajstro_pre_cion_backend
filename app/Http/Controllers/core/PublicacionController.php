@@ -43,7 +43,7 @@ class PublicacionController extends Controller
           "etq_id" => $etq_id,
         ]);
 
-        return Response::json(htmlspecialchars("��xito!"));
+        return Response::json(htmlspecialchars("¡Éxito!"));
     }
 
     /**
