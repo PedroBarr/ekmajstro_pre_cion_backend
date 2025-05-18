@@ -417,7 +417,6 @@ class TrazabilidadController extends Controller
             "Dise&ntilde;ar contenido y recursos",
             "Redactar publicaci&oacute;n de Legión, Delirios Sociales",
             "Redactar publicaci&oacute;n de Los Siete maridos de Evelyn Hugo",
-            "Agregar edici&oacute;n de datos b&aacute;sicos de publicaci&oacute;n",
             "Redactar publicaci&oacute;n de For the Damaged Coda",
             "Agregar dise&ntilde;o responsivo",
             "Redactar publicaci&oacute;n de Inteligencia Artificial",
