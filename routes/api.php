@@ -73,6 +73,11 @@ Route::middleware(['cors'])->group(function ( ) {
         [\App\Http\Controllers\core\RecursoController::class, 'show']
     )->name('recurso');
 
+    Route::get(
+      "/recursos/publicacion/{id}",
+      [\App\Http\Controllers\core\PublicacionController::class, 'recursos']
+    )->name('recursos_publicacion');
+
     Route::post(
         "/archivo",
         [\App\Http\Controllers\core\ArchivoController::class, 'store']
