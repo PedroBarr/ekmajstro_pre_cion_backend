@@ -105,10 +105,10 @@ class Publicacion extends Model
       ;
     }
 
-    public static function with_previsualizacion ( ) {
+    public static function con_previsualizacion ( ) {
       return self::select(
           'publicaciones.*',
-          DB::raw('IF (previsualizaciones.prev_id IS NULL, FALSE, TRUE) AS with_previsualizacion')
+          DB::raw('IF (previsualizaciones.prev_id IS NULL, FALSE, TRUE) AS con_previsualizacion')
         )
         ->leftjoin('previsualizaciones', 'publicaciones.pblc_id', '=', 'previsualizaciones.pblc_id')
         ->get()

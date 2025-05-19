@@ -23,7 +23,7 @@ class PublicacionController extends Controller
     public function index(Request $request)
     {
       if ($request->has('with_previsualization') && filter_var($request->query('with_previsualization'), FILTER_VALIDATE_BOOLEAN))
-        return Publicacion::with_previsualizacion();
+        return Publicacion::con_previsualizacion();
       return Publicacion::all();
     }
 
