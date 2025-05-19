@@ -114,4 +114,14 @@ class Publicacion extends Model
         ->get()
       ;
     }
+
+    public function secciones_lista ( ) {
+        return $this->hasMany(
+          Seccion::class,
+          'pblc_id',
+        )
+          ->withExists('secciones_marcadas')
+          ->orderBy('secciones_marcadas_exists', 'desc')
+        ;
+    }
 }

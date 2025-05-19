@@ -199,4 +199,14 @@ class PublicacionController extends Controller
     {
         //
     }
+
+    /**
+     * Get sections of post
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function secciones($id) {
+      $publicacion = $this->show($id);
+      return $publicacion->secciones_lista;
+    }
 }

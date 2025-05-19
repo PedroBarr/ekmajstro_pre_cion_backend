@@ -123,6 +123,11 @@ Route::middleware(['cors'])->group(function ( ) {
       [\App\Http\Controllers\core\PublicacionController::class, 'upgrade']
     )->name('actualizar_publicacion');
 
+    Route::get(
+      "/publicacion/{id}/secciones",
+      [\App\Http\Controllers\core\PublicacionController::class, 'secciones']
+    )->name('secciones_publicacion');
+
     Route::post(
       "/previsualizacion",
       [\App\Http\Controllers\core\PrevisualizacionController::class, 'store']
