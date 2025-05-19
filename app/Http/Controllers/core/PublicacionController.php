@@ -20,9 +20,11 @@ class PublicacionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Publicacion::all();
+      if ($request->has('with_previsualization') && filter_var($request->query('with_previsualization'), FILTER_VALIDATE_BOOLEAN))
+        return Publicacion::with_previsualizacion();
+      return Publicacion::all();
     }
 
     public function etiquetar(Request $request, ?bool $from_inner = False)

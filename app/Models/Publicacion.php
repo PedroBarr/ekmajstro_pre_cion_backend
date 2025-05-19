@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -101,6 +102,16 @@ class Publicacion extends Model
         ->with('tipos')
         ->with('archivos')
         ->with('especificaciones')
+      ;
+    }
+
+    public static function with_previsualizacion ( ) {
+      return self::select(
+          'publicaciones.*',
+          DB::raw('IF (previsualizaciones.prev_id IS NULL, FALSE, TRUE) AS with_previsualizacion')
+        )
+        ->leftjoin('previsualizaciones', 'publicaciones.pblc_id', '=', 'previsualizaciones.pblc_id')
+        ->get()
       ;
     }
 }
