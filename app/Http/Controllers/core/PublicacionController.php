@@ -219,4 +219,14 @@ class PublicacionController extends Controller
       $publicacion = $this->show($id);
       return $publicacion->recursos_con_todo;
     }
+
+    /**
+     * Get tags of post
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function etiquetas($id) {
+      $publicacion = $this->show($id);
+      return $publicacion->etiquetas;
+    }
 }
