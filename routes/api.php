@@ -127,6 +127,11 @@ Route::middleware(['cors'])->group(function ( ) {
       "/publicacion/{id}/secciones",
       [\App\Http\Controllers\core\PublicacionController::class, 'secciones']
     )->name('publicacion_lista_secciones');
+    
+    Route::get(
+      "/publicacion/{id}/recursos",
+      [\App\Http\Controllers\core\PublicacionController::class, 'recursos']
+    )->name('publicacion_lista_recursos');
 
     Route::post(
       "/previsualizacion",

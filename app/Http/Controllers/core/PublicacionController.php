@@ -209,4 +209,14 @@ class PublicacionController extends Controller
       $publicacion = $this->show($id);
       return $publicacion->secciones_lista;
     }
+
+    /**
+     * Get resources of post
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function recursos($id) {
+      $publicacion = $this->show($id);
+      return $publicacion->recursos_con_todo;
+    }
 }
