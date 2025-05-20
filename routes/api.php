@@ -163,6 +163,11 @@ Route::middleware(['cors'])->group(function ( ) {
       [\App\Http\Controllers\core\PrevisualizacionController::class, 'show']
     )->name('previsualizacion');
 
+    Route::get(
+      "/previsualizacion/publicacion/{id}",
+      [\App\Http\Controllers\core\PublicacionController::class, 'previsualizacion']
+    )->name('previsualizacion_publicacion');
+
     Route::post(
       "/etiqueta",
       [\App\Http\Controllers\core\EtiquetaController::class, 'store']
