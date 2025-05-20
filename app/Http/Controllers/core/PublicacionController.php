@@ -237,6 +237,12 @@ class PublicacionController extends Controller
      */
     public function previsualizacion($id) {
       $publicacion = $this->show($id);
+      $previsualizacion = $publicacion->previsualizacion;
+      if ($previsualizacion == null)
+        return response()->json([
+          'error' => 'No se ha encontrado la previsualización de la publicación.'
+        ], 404);
+        
       return $publicacion->previsualizacion;
     }
 
