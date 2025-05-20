@@ -229,4 +229,15 @@ class PublicacionController extends Controller
       $publicacion = $this->show($id);
       return $publicacion->etiquetas;
     }
+
+    /**
+     * Get preview of post
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function previsualizacion($id) {
+      $publicacion = $this->show($id);
+      return $publicacion->previsualizacion;
+    }
+
 }

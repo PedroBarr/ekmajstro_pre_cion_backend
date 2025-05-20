@@ -45,7 +45,11 @@ class Publicacion extends Model
     }
 
     public function previsualizaciones ( ) {
-        return $this->hasMany(Previsualizacion::class);
+        return $this->hasMany(
+          Previsualizacion::class,
+          'pblc_id',
+          'pblc_id'
+        );
     }
 
     public function secciones ( ) {
@@ -124,4 +128,13 @@ class Publicacion extends Model
           ->orderBy('secciones_marcadas_exists', 'desc')
         ;
     }
+
+    public function previsualizacion ( ) {
+        return $this->hasOne(
+          Previsualizacion::class,
+          'pblc_id',
+          'pblc_id'
+        );
+    }
+
 }
