@@ -203,6 +203,11 @@ Route::middleware(['cors'])->group(function ( ) {
       [\App\Http\Controllers\core\PublicacionController::class, 'secciones']
     )->name('secciones_publicacion');
 
+    Route::get(
+      "/seccion/{id}/segmentos",
+      [\App\Http\Controllers\core\SeccionController::class, 'segmentos']
+    )->name('seccion_lista_segmentos');
+
     Route::post(
       "/segmento",
       [\App\Http\Controllers\core\SegmentoController::class, 'store']

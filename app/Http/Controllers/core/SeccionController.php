@@ -101,4 +101,16 @@ class SeccionController extends Controller
     {
         //
     }
+
+    /**
+     * Get segments of section
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function segmentos($id)
+    {
+        $seccion = $this->show($id);
+        return $seccion->segmentos;
+    }
+
 }
