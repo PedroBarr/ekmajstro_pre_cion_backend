@@ -113,7 +113,7 @@ class SeccionController extends Controller
      */
     public function segmentos($id)
     {
-        $seccion = $this->show($id);
+        $seccion = Seccion::findOrFail($id);
         return $seccion->segmentos;
     }
 
