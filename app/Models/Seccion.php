@@ -44,4 +44,20 @@ class Seccion extends Model
           'secc_id',
         );
     }
+
+    public static function con_seccion_marcada ($secc_id) {
+        return self::select(
+          'secciones.*',
+          DB::raw('IF (secciones_marcadas.secc_id IS NULL, FALSE, TRUE) AS con_seccion_marcada')
+        )
+          ->leftJoin(
+            'secciones_marcadas',
+            'secciones.secc_id',
+            '=',
+            'secciones_marcadas.secc_id'
+          )
+          ->where('secciones.secc_id', $secc_id)
+          // ->with('segmentos')
+          ->first();
+    }
 }

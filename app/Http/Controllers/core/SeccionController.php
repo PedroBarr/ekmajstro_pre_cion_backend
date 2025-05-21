@@ -72,11 +72,15 @@ class SeccionController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
-        return Seccion::findOrFail($id);
+      if ($request->has('con_es_marcada') && filter_var($request->query('con_es_marcada'), FILTER_VALIDATE_BOOLEAN))
+        return Seccion::con_seccion_marcada($id);
+    
+      return Seccion::findOrFail($id);
     }
 
     /**
