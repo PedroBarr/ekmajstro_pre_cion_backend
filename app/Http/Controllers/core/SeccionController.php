@@ -76,7 +76,7 @@ class SeccionController extends Controller
      */
     public function show($id)
     {
-        //
+        return Seccion::findOrFail($id);
     }
 
     /**

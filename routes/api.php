@@ -188,6 +188,11 @@ Route::middleware(['cors'])->group(function ( ) {
       [\App\Http\Controllers\core\PublicacionController::class, 'etiquetas']
     )->name('etiquetas_publicacion');
 
+    Route::get(
+      "/seccion/{id}",
+      [\App\Http\Controllers\core\SeccionController::class, 'show']
+    )->name('seccion');
+
     Route::post(
       "/seccion",
       [\App\Http\Controllers\core\SeccionController::class, 'store']
