@@ -418,7 +418,6 @@ class TrazabilidadController extends Controller
             "Redactar publicaci&oacute;n de Legión, Delirios Sociales",
             "Redactar publicaci&oacute;n de Los Siete maridos de Evelyn Hugo",
             "Redactar publicaci&oacute;n de For the Damaged Coda",
-            "Agregar dise&ntilde;o responsivo",
             "Redactar publicaci&oacute;n de Inteligencia Artificial",
           ],
           "uri_separador" => asset($base_url.'icons/core/ekmajstro.svg'),
