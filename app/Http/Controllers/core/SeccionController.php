@@ -4,6 +4,7 @@ namespace App\Http\Controllers\core;
 
 use App\Http\Controllers\Controller;
 use App\Models\Seccion;
+use App\Models\Publicacion;
 
 use App\Http\Controllers\core\SegmentoController;
 
@@ -36,7 +37,7 @@ class SeccionController extends Controller
         if ($from_inner)
           $contenido = json_decode(key($datos), true);
         else
-          $contenido = $request->json($datos);
+          $contenido = $datos;
 
         $seccion = Seccion::create([
           "secc_nombre" => $contenido["nombre"],
@@ -63,6 +64,29 @@ class SeccionController extends Controller
           }
 
           $seccion["segmentos"] = $segmentos;
+        }
+
+        if (
+          isset($contenido["es_defecto"]) ||
+          isset($contenido["es_marcada"]) ||
+          isset($contenido["marcada"]) ||
+          isset($contenido["secc_marcada"]) ||
+          isset($contenido["secciones_marcadas_exists"])
+        ) {
+          $param_es_marcada = $contenido["es_defecto"] ?? $contenido["es_marcada"] ?? $contenido["marcada"] ?? $contenido["secc_marcada"] ?? $contenido["secciones_marcadas_exists"];
+          $es_marcada = filter_var($param_es_marcada, FILTER_VALIDATE_BOOLEAN);
+
+          if ($es_marcada) {
+            Publicacion::marcar_seccion(
+              $contenido["publicacion"],
+              $seccion->secc_id
+            );
+          } else {
+            Publicacion::desmarcar_seccion(
+              $contenido["publicacion"],
+              $seccion->secc_id
+            );
+          }
         }
 
         return $seccion;
