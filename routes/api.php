@@ -229,6 +229,11 @@ Route::middleware(['cors'])->group(function ( ) {
     )->name('segmentos_seccion');
 
     Route::get(
+      "/segmento/{id}",
+      [\App\Http\Controllers\core\SegmentoController::class, 'show']
+    )->name('segmento');
+
+    Route::get(
       "/404",
       [\App\Http\Controllers\TrazabilidadController::class, 'ignota']
     )->name('ignota');

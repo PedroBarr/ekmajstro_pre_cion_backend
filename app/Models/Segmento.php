@@ -28,4 +28,8 @@ class Segmento extends Model
     public function secciones ( ) {
         return $this->belongsTo(Seccion::class);
     }
+
+    public function getContenido ( ) {
+        return json_decode($this->segm_contenido, true);
+    }
 }

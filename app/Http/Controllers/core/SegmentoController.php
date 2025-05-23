@@ -63,7 +63,12 @@ class SegmentoController extends Controller
      */
     public function show($id)
     {
-        //
+        $segmento = Segmento::findOrFail($id);
+
+        $contenido = $segmento->getContenido();
+
+        $segmento->segm_contenido = $contenido;
+        return $segmento;
     }
 
     /**
