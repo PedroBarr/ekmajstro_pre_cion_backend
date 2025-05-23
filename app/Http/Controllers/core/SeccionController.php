@@ -121,7 +121,44 @@ class SeccionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $datos = $request->all();
+        $contenido = $datos;
+
+        $seccion = $this->show($id, $request);
+
+        if (isset($contenido["nombre"]) || isset($contenido["secc_nombre"])) {
+          $seccion->secc_nombre = $contenido["nombre"] ?? $contenido["secc_nombre"];
+          $seccion->save();
+        }
+
+        if (
+          isset($contenido["marcada"]) ||
+          isset($contenido["es_marcada"]) ||
+          isset($contenido["secc_marcada"]) ||
+          isset($contenido["secciones_marcadas_exists"])
+        ) {
+          $publicacion = Publicacion::findOrFail($seccion->pblc_id);
+          
+          $param_es_marcada = $contenido["marcada"] ?? $contenido["es_marcada"] ?? $contenido["secc_marcada"] ?? $contenido["secciones_marcadas_exists"];
+          $es_marcada = filter_var($param_es_marcada, FILTER_VALIDATE_BOOLEAN);
+          if ($es_marcada) {
+            Publicacion::marcar_seccion(
+              $publicacion->pblc_id,
+              $seccion->secc_id
+            );
+          } else {
+            Publicacion::desmarcar_seccion(
+              $publicacion->pblc_id,
+              $seccion->secc_id
+            );
+          }
+        }
+        
+        $request->request->add([
+          "con_es_marcada" => true
+        ]);
+
+        return $this->show($id, $request);
     }
 
     /**

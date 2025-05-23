@@ -208,6 +208,11 @@ Route::middleware(['cors'])->group(function ( ) {
       [\App\Http\Controllers\core\SeccionController::class, 'segmentos']
     )->name('seccion_lista_segmentos');
 
+    Route::put(
+      "/seccion/{id}",
+      [\App\Http\Controllers\core\SeccionController::class, 'update']
+    )->name('editar_seccion');
+
     Route::post(
       "/segmento",
       [\App\Http\Controllers\core\SegmentoController::class, 'store']
