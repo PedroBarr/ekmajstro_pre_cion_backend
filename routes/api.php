@@ -214,6 +214,11 @@ Route::middleware(['cors'])->group(function ( ) {
     )->name('editar_seccion');
 
     Route::post(
+      "/seccion/actualizar",
+      [\App\Http\Controllers\core\SeccionController::class, 'upgrade']
+    )->name('actualizar_seccion');
+
+    Route::post(
       "/segmento",
       [\App\Http\Controllers\core\SegmentoController::class, 'store']
     )->name('nuevo_segmento');
