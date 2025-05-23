@@ -31,28 +31,66 @@ class SegmentoController extends Controller
         $datos = $request->all();
         $contenido = null;
 
-        //return $datos;
         if ($from_inner)
           $contenido = json_decode(key($datos), true);
         else {
           if (count($datos) == 1)
-            $contenido = $request->json($datos);
+            $contenido = $datos;
           else {
             $contenido = json_decode(json_encode($datos), true);
-            $contenido["contenido"] = json_decode(
-              $contenido["contenido"], true
-            );
+
+            if (!is_array($contenido["contenido"])) {
+              $contenido["contenido"] = json_decode(
+                $contenido["contenido"], true
+              );
+            }
           }
         }
 
-        $segmento = Segmento::create([
-          "segm_medida" => $contenido["medida"],
-          "segm_posicion" => $contenido["posicion"],
-          "segm_contenido" => json_encode($contenido["contenido"]),
-          "secc_id" => $contenido["seccion"],
-        ]);
+        $seccion = $contenido["seccion"] ?? $contenido["secc_id"];
 
-        return $segmento;
+        $posicion = (isset($contenido["posicion"]) || isset($contenido["segm_posicion"]))
+          ? $contenido["posicion"] ?? $contenido["segm_posicion"]
+          : null;
+
+        if ($posicion == null) {
+            $max_posicion = Segmento::where("secc_id", "=", $seccion)
+              ->max("segm_posicion");
+
+            if ($max_posicion == null) {
+                $posicion = 0;
+            } else {
+                $posicion = $max_posicion + 1;
+            }
+        }
+
+        $datos = [
+          "segm_medida" => $contenido["medida"] ?? $contenido["segm_medida"],
+          "segm_posicion" => $posicion,
+          "segm_contenido" => json_encode($contenido["contenido"]) ?? json_encode($contenido["segm_contenido"]),
+          "secc_id" => $seccion,
+        ];
+
+        if (!in_array($datos["segm_medida"], ["1-col", "2-col", "3-col"])) {
+            return response()->json([
+                "error" => "El valor de la medida no es correcto"
+            ], 400);
+        }
+
+        if ($datos["segm_posicion"] < 0) {
+            return response()->json([
+                "error" => "El valor de la posición no es correcto"
+            ], 400);
+        }
+
+        $segmento = Segmento::create($datos);
+
+        if ($from_inner) {
+          return $segmento;
+        } else {
+          $segmento->segm_contenido = $segmento->getContenido();
+          return $segmento;
+        }
     }
 
     /**
