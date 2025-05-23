@@ -137,4 +137,37 @@ class Publicacion extends Model
         );
     }
 
+    public static function marcar_seccion ($pblc_id, $secc_id) {
+        $existe = SeccionMarcada::where('pblc_id', $pblc_id)
+          ->where('secc_id', $secc_id)
+          ->exists();
+
+        if ($existe) return;
+
+        $existe = SeccionMarcada::where('pblc_id', $pblc_id)
+          ->first();
+
+        if ($existe) {
+            SeccionMarcada::where('pblc_id', $pblc_id)
+              ->update(['secc_id' => $secc_id]);
+        } else {
+            SeccionMarcada::create([
+              'pblc_id' => $pblc_id,
+              'secc_id' => $secc_id
+            ]);
+        }
+    }
+
+    public static function desmarcar_seccion ($pblc_id, $secc_id) {
+        $existe = SeccionMarcada::where('pblc_id', $pblc_id)
+          ->where('secc_id', $secc_id)
+          ->exists();
+
+        if ($existe) {
+            SeccionMarcada::where('pblc_id', $pblc_id)
+              ->where('secc_id', $secc_id)
+              ->delete();
+        }
+    }
+
 }
