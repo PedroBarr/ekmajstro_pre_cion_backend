@@ -61,9 +61,8 @@ class PublicacionController extends Controller
 
         if ($from_inner)
           $contenido = json_decode(key($datos), true);
-        else {
+        else
           $contenido = $datos;
-        }
 
         $publicaciones_base_url = 'assets/img/core/publicaciones/';
 
