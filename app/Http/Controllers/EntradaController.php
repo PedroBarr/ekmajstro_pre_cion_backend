@@ -81,13 +81,38 @@ class EntradaController extends Controller
      */
     public function index()
     {
+        $busqueda = request()->query('busqueda') ?? null;
+
         $anuncios_base_url = 'assets/img/core/anuncios/';
         $previsualizaciones_base_url = 'assets/img/core/anuncios/';
         $entradas = Array();
 
-        $previsualizaciones = Previsualizacion
-          ::with('publicaciones')
-          ->orderBy(Publicacion::select('pblc_fecha_publicacion')->whereColumn('publicaciones.pblc_id', 'previsualizaciones.pblc_id'), 'DESC')
+        $previsualizaciones = Previsualizacion::with('publicaciones');
+
+        if (isset($busqueda) && $busqueda != "") {
+          $previsualizaciones = $previsualizaciones
+            ->orWhere('prev_resumen', 'LIKE', "%$busqueda%")
+            ->orWhere('prev_descripcion', 'LIKE', "%$busqueda%");
+        }
+        $previsualizaciones = $previsualizaciones
+        ->orderBy(Publicacion::select('pblc_fecha_publicacion')->whereColumn('publicaciones.pblc_id', 'previsualizaciones.pblc_id'), 'DESC');
+
+        if (isset($busqueda) && $busqueda != "") {
+          // Si hay busqueda, se filtra por el pblc_titulo a traves de una raw where
+          $previsualizaciones = $previsualizaciones
+            ->orWhereRaw('EXISTS (
+              SELECT
+                1
+              FROM
+                publicaciones AS PBLC
+              WHERE
+                PBLC.pblc_id = previsualizaciones.pblc_id AND
+                PBLC.pblc_titulo LIKE "%'.$busqueda.'%"
+            )');
+        }
+        
+
+        $previsualizaciones = $previsualizaciones
           ->orderByRaw('
             (
               SELECT
