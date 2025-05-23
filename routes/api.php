@@ -233,6 +233,11 @@ Route::middleware(['cors'])->group(function ( ) {
       [\App\Http\Controllers\core\SegmentoController::class, 'show']
     )->name('segmento');
 
+    Route::patch(
+      "/segmento/{id}/reubicar",
+      [\App\Http\Controllers\core\SegmentoController::class, 'relocate']
+    )->name('reubicar_segmento');
+
     Route::get(
       "/404",
       [\App\Http\Controllers\TrazabilidadController::class, 'ignota']
