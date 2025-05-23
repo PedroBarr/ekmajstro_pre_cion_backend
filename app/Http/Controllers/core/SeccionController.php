@@ -101,7 +101,12 @@ class SeccionController extends Controller
      */
     public function show($id, Request $request)
     {
-      if ($request->has('con_es_marcada') && filter_var($request->query('con_es_marcada'), FILTER_VALIDATE_BOOLEAN))
+      if (
+        $request->has('con_es_marcada') && (
+          filter_var($request->query('con_es_marcada'), FILTER_VALIDATE_BOOLEAN) ||
+          filter_var($request->get('con_es_marcada'), FILTER_VALIDATE_BOOLEAN)
+        )
+      )
         return Seccion::con_seccion_marcada($id);
     
       return Seccion::findOrFail($id);
