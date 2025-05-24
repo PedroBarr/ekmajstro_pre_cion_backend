@@ -28,7 +28,7 @@ class EtiquetaController extends Controller
      */
     public function store(Request $request)
     {
-        $contenido = $request->json($request->all());
+        $contenido = $request->all();
 
         $nombre = $contenido["nombre"];
         $descripcion = $contenido["descripcion"];
