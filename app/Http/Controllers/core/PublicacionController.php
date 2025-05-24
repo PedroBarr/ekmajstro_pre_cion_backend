@@ -7,7 +7,6 @@ use App\Http\Controllers\core\SeccionController;
 
 use App\Models\Publicacion;
 use App\Models\SeccionMarcada;
-use App\Models\EtiquetaPublicacion;
 
 use Response;
 use Illuminate\Http\Request;
@@ -35,7 +34,7 @@ class PublicacionController extends Controller
         if ($from_inner)
           $contenido = json_decode(key($datos), true);
         else
-          $contenido = $request->json($datos);
+          $contenido = $datos;
 
         $pblc_id = $contenido["publicacion"];
         $etq_id = $contenido["etiqueta"];
@@ -45,7 +44,7 @@ class PublicacionController extends Controller
           "etq_id" => $etq_id,
         ]);
 
-        return Response::json(htmlspecialchars("¡Éxito!"));
+        return $this->etiquetas($pblc_id);
     }
 
     /**
