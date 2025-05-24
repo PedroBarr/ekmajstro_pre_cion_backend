@@ -117,6 +117,11 @@ Route::middleware(['cors'])->group(function ( ) {
       "/publicacion/etiqueta",
       [\App\Http\Controllers\core\PublicacionController::class, 'etiquetar']
     )->name('etiquetar_publicacion');
+    
+    Route::delete(
+      "/publicacion/etiqueta/{id}",
+      [\App\Http\Controllers\core\PublicacionController::class, 'desetiquetar']
+    )->name('desetiquetar_publicacion');
 
     Route::put(
       "/publicacion/{id}",

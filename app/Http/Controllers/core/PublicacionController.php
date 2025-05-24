@@ -26,6 +26,28 @@ class PublicacionController extends Controller
       return Publicacion::all();
     }
 
+    public function desetiquetar(int $id, Request $request)
+    {
+      $datos = $request->all();
+      $contenido = $datos;
+
+      $pblc_id = $contenido["publicacion"];
+
+      $etiqueta_publicacion = DB::table('etiqueta_publicacion')
+      ->where('pblc_id', $pblc_id)
+        ->where('etq_id', $id)
+        ->first();
+
+      if ($etiqueta_publicacion) {
+        DB::table('etiqueta_publicacion')
+          ->where('pblc_id', $pblc_id)
+          ->where('etq_id', $id)
+          ->delete();
+      }
+
+      return $this->etiquetas($pblc_id);
+    }
+
     public function etiquetar(Request $request, ?bool $from_inner = False)
     {
         $datos = $request->all();
