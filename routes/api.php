@@ -242,6 +242,11 @@ Route::middleware(['cors'])->group(function ( ) {
       "/segmento/{id}",
       [\App\Http\Controllers\core\SegmentoController::class, 'update']
     )->name('editar_segmento');
+    
+    Route::post(
+      "/segmento/actualizar",
+      [\App\Http\Controllers\core\SegmentoController::class, 'upgrade']
+    )->name('actualizar_segmento');
 
     Route::get(
       "/404",
