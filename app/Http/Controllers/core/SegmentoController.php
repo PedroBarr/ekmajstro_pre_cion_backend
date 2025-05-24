@@ -118,7 +118,66 @@ class SegmentoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $datos = $request->all();
+        $contenido = $datos;
+
+        $segmento = $this->show($id);
+
+        if (isset($contenido["contenido"]) || isset($contenido["segm_contenido"])) {
+            $contenido["contenido"] = $contenido["contenido"] ?? $contenido["segm_contenido"];
+
+            if (!is_array($contenido["contenido"])) {
+                $contenido["contenido"] = json_decode($contenido["contenido"], true);
+            }
+
+            if (!isset($contenido["contenido"]["tipo"])) {
+                return response()->json([
+                    "error" => "El contenido no tiene el tipo definido"
+                ], 400);
+            }
+
+            if (!isset($contenido["contenido"]["contenido"])) {
+                $contenido["contenido"]["contenido"] = "";
+            }
+
+            if (!isset($contenido["contenido"]["clase"])) {
+                $contenido["contenido"]["clase"] = "";
+            }
+
+            $contenido["contenido"] = json_encode($contenido["contenido"]);
+
+            $segmento->segm_contenido = $contenido["contenido"];
+        }
+
+        if (isset($contenido["medida"]) || isset($contenido["segm_medida"])) {
+            $segmento->segm_medida = $contenido["medida"] ?? $contenido["segm_medida"];
+        }
+
+        if (isset($contenido["posicion"]) || isset($contenido["segm_posicion"])) {
+            $segmento->segm_posicion = $contenido["posicion"] ?? $contenido["segm_posicion"];
+        }
+
+        if (isset($contenido["secc_id"]) || isset($contenido["seccion"])) {
+            $segmento->secc_id = $contenido["secc_id"] ?? $contenido["seccion"];
+        }
+
+        if (!in_array($segmento->segm_medida, ["1-col", "2-col", "3-col"])) {
+            return response()->json([
+                "error" => "El valor de la medida no es correcto"
+            ], 400);
+        }
+
+        if ($segmento->segm_posicion < 0) {
+            return response()->json([
+                "error" => "El valor de la posición no es correcto"
+            ], 400);
+        }
+
+        $segmento->save();
+
+        $segmento = $this->show($id);
+
+        return $segmento;
     }
 
     /**
