@@ -4,6 +4,7 @@ namespace App\Http\Controllers\core;
 
 use Illuminate\Http\Request;
 use Response;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Recurso;
 use App\Models\Publicacion;
@@ -30,28 +31,52 @@ class PrevisualizacionController extends Controller
      */
     public function store(Request $request)
     {
-        $contenido = $request->json($request->all());
+        $datos = $request->all();
+        $contenido = $datos;
+
         $previsualizaciones_base_url = 'assets/img/core/publicaciones/';
 
         $prev_img_miniatura_uri = $contenido["miniatura_uri"];
         $prev_resumen = $contenido["resumen"];
         $prev_descripcion = $contenido["descripcion"];
-        $rec_diminutivo = $contenido["rec_diminutivo"];
-        $pblc_id = $contenido["pblc_id"];
+        $rec_diminutivo = $contenido["rec_diminutivo"] ?? null;
+        $pblc_id = $contenido["publicacion"] ?? $contenido["pblc_id"];
 
-        $recurso = Recurso::where("rec_diminutivo", $rec_diminutivo)->first();
+        
         $publicacion = Publicacion::where("pblc_id", $pblc_id)->first();
+        
+        if ($rec_diminutivo != null) {
+            $recurso = Recurso::where("rec_diminutivo", $rec_diminutivo)->first();
+        } else if ($publicacion != null) {
+            $recurso = DB::table('recurso_publicacion')
+                ->where('pblc_id', $publicacion->pblc_id)
+                ->join('recursos', 'recursos.rec_id', '=', 'recurso_publicacion.rec_id')
+                ->select('recursos.*')
+                ->first();
+        }
 
-        $previsualizacion = Previsualizacion::create([
-          "prev_img_miniatura_uri" => asset(
-            $previsualizaciones_base_url.
-            $prev_img_miniatura_uri
-          ),
+        if (!$recurso) {
+            $recurso = Recurso::first();
+        }
+
+        $prev_img_miniatura_uri = $prev_img_miniatura_uri ?? '';
+
+        if (strpos($prev_img_miniatura_uri, 'http') === false) {
+            $prev_img_miniatura_uri = asset(
+                $previsualizaciones_base_url.
+                $prev_img_miniatura_uri
+            );
+        }
+
+        $datos = [
+          "prev_img_miniatura_uri" => $prev_img_miniatura_uri,
           "prev_resumen" => $prev_resumen,
           "prev_descripcion" => $prev_descripcion,
-          "rec_id" => $recurso->rec_id,
           "pblc_id" => $publicacion->pblc_id,
-        ]);
+          "rec_id" => $recurso->rec_id,
+        ];
+
+        $previsualizacion = Previsualizacion::create($datos);
 
         return $previsualizacion;
     }
