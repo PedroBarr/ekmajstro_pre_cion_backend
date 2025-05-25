@@ -101,7 +101,24 @@ class PrevisualizacionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $datos = $request->all();
+        $contenido = $datos;
+        
+        $previsualizacion = Previsualizacion::findOrFail($id);
+
+        $prev_img_miniatura_uri = $contenido["miniatura_uri"] ?? $previsualizacion->prev_img_miniatura_uri;
+        $prev_resumen = $contenido["resumen"] ?? $previsualizacion->prev_resumen;
+        $prev_descripcion = $contenido["descripcion"] ?? $previsualizacion->prev_descripcion;
+
+        $previsualizacion->prev_img_miniatura_uri = $prev_img_miniatura_uri;
+        $previsualizacion->prev_resumen = $prev_resumen;
+        $previsualizacion->prev_descripcion = $prev_descripcion;
+
+        $previsualizacion->save();
+
+        $previsualizacion = $this->show($id);
+
+        return $previsualizacion;
     }
 
     /**

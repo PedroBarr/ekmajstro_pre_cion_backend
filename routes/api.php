@@ -168,6 +168,11 @@ Route::middleware(['cors'])->group(function ( ) {
       [\App\Http\Controllers\core\PrevisualizacionController::class, 'show']
     )->name('previsualizacion');
 
+    Route::put(
+      "/previsualizacion/{id}",
+      [\App\Http\Controllers\core\PrevisualizacionController::class, 'update']
+    )->name('editar_previsualizacion');
+
     Route::get(
       "/previsualizacion/publicacion/{id}",
       [\App\Http\Controllers\core\PublicacionController::class, 'previsualizacion']
