@@ -266,4 +266,19 @@ class PublicacionController extends Controller
       return $publicacion->previsualizacion;
     }
 
+    public function adjuntar(Request $request) {
+      $datos = $request->all();
+      $contenido = $datos;
+
+      $pblc_id = $contenido["publicacion"];
+      $recurso = $contenido["recurso"];
+
+      $resultado = DB::table('recurso_publicacion')->insert([
+        "pblc_id" => $pblc_id,
+        "rec_id" => $recurso,
+      ]);
+
+      return $this->recursos($pblc_id);
+    }
+
 }

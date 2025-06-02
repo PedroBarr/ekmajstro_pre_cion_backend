@@ -123,6 +123,11 @@ Route::middleware(['cors'])->group(function ( ) {
       [\App\Http\Controllers\core\PublicacionController::class, 'desetiquetar']
     )->name('desetiquetar_publicacion');
 
+    Route::post(
+      "/publicacion/recurso",
+      [\App\Http\Controllers\core\PublicacionController::class, 'adjuntar']
+    )->name('adjuntar_recurso_publicacion');
+
     Route::put(
       "/publicacion/{id}",
       [\App\Http\Controllers\core\PublicacionController::class, 'update']
