@@ -84,6 +84,11 @@ Route::middleware(['cors'])->group(function ( ) {
     )->name('editar_recurso');
 
     Route::post(
+      "/recurso/actualizar",
+      [\App\Http\Controllers\core\RecursoController::class, 'upgrade']
+    )->name('actualizar_recurso');
+
+    Route::post(
         "/archivo",
         [\App\Http\Controllers\core\ArchivoController::class, 'store']
     )->name('nuevo_archivo');

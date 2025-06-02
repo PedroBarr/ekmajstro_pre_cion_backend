@@ -229,4 +229,13 @@ class RecursoController extends Controller
     {
         //
     }
+
+    public function upgrade(Request $request) {
+      $datos = $request->all();
+      $contenido = $datos;
+
+      $id = $contenido["id"];
+
+      return $this->update($request, $id);
+    }
 }
