@@ -30,26 +30,44 @@ class ArchivoController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+            $datos = $request->all();
+            $contenido = $datos;
+        } catch (\Exception $e) {
+            $contenido = [];
+        }
 
-        $archivo = $request->file('archivo');
-        $archivo_nombre = $archivo->getClientOriginalName();
-        $archivo_contenido = file_get_contents($archivo);
-        $archivo_extension = $archivo->getClientOriginalExtension();
-        $archivo_mimetismo = $archivo->getMimeType();
-        $archivo_medida = $archivo->getSize();
-        // $archivo_ruta = 'static/';
-        $archivo_ruta = 'archivos/';
+        if ($request->hasFile('archivo')) {
+          $archivo = $request->file('archivo');
+          $archivo_nombre = $archivo->getClientOriginalName();
+          $archivo_contenido = file_get_contents($archivo);
+          $archivo_extension = $archivo->getClientOriginalExtension();
+          $archivo_mimetismo = $archivo->getMimeType();
+          $archivo_medida = $archivo->getSize();
+          // $archivo_ruta = 'static/';
+          $archivo_ruta = 'archivos/';
 
-        Storage::put($archivo_ruta . $archivo_nombre, $archivo_contenido);
+          Storage::put($archivo_ruta . $archivo_nombre, $archivo_contenido);
 
-        $archivo_uri = Storage::url($archivo_ruta . $archivo_nombre);
+          $archivo_uri = Storage::url($archivo_ruta . $archivo_nombre);
 
-        if (str_contains($archivo_uri, "localhost")) {
-          $archivo_uri = str_replace(
-            "localhost",
-            $request->getHttpHost(),
-            $archivo_uri,
-          );
+          if (str_contains($archivo_uri, "localhost")) {
+            $archivo_uri = str_replace(
+              "localhost",
+              $request->getHttpHost(),
+              $archivo_uri,
+            );
+          }
+        } else if (isset($contenido["archivo_uri"])) {
+          $archivo_uri = $contenido["archivo_uri"];
+          $archivo_nombre = $contenido["archivo_nombre"] ?? 'archivo' . time();
+          $archivo_extension = $contenido["archivo_extension"] ?? 'txt';
+          $archivo_mimetismo = $contenido["archivo_mimetismo"] ?? 'text/plain';
+          $archivo_medida = $contenido["archivo_medida"] ?? 0;
+        } else {
+          return Response::json([
+              "error" => "No se ha proporcionado un archivo o una URI de archivo válida."
+          ], 400);
         }
 
         $archivo_entidad = Archivo::create([
