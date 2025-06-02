@@ -128,6 +128,11 @@ Route::middleware(['cors'])->group(function ( ) {
       [\App\Http\Controllers\core\PublicacionController::class, 'adjuntar']
     )->name('adjuntar_recurso_publicacion');
 
+    Route::delete(
+      "/publicacion/recurso/{id}",
+      [\App\Http\Controllers\core\PublicacionController::class, 'desadjuntar']
+    )->name('desadjuntar_recurso_publicacion');
+
     Route::put(
       "/publicacion/{id}",
       [\App\Http\Controllers\core\PublicacionController::class, 'update']

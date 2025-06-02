@@ -281,4 +281,25 @@ class PublicacionController extends Controller
       return $this->recursos($pblc_id);
     }
 
+    public function desadjuntar(int $id, Request $request) {
+      $datos = $request->all();
+      $contenido = $datos;
+
+      $pblc_id = $contenido["publicacion"];
+
+      $recurso_publicacion = DB::table('recurso_publicacion')
+        ->where('pblc_id', $pblc_id)
+        ->where('rec_id', $id)
+        ->first();
+
+      if ($recurso_publicacion) {
+        DB::table('recurso_publicacion')
+          ->where('pblc_id', $pblc_id)
+          ->where('rec_id', $id)
+          ->delete();
+      }
+
+      return $this->recursos($pblc_id);
+    }
+
 }
