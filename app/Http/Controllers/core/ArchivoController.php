@@ -111,7 +111,32 @@ class ArchivoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $datos = $request->all();
+        $contenido = $datos;
+
+        $archivo = Archivo::findOrFail($id);
+
+        $archivo_nombre = $contenido["archivo_nombre"] ?? '';
+        $archivo_uri = $contenido["archivo_uri"] ?? '';
+        $archivo_mimetismo = $contenido["archivo_mimetismo"] ?? '';
+        $archivo_extension = $contenido["archivo_extension"] ?? '';
+        $archivo_medida = $contenido["archivo_medida"] ?? 0;
+
+        if ($archivo_nombre) $archivo->arch_name = $archivo_nombre;
+
+        if ($archivo_uri) $archivo->arch_uri = $archivo_uri;
+        
+        if ($archivo_mimetismo) $archivo->arch_mime = $archivo_mimetismo;
+
+        if ($archivo_extension) $archivo->arch_extension = $archivo_extension;
+
+        if ($archivo_medida) $archivo->arch_size = $archivo_medida;
+        
+        $archivo->save();
+
+        $archivo = $this->show($id);
+
+        return $archivo;
     }
 
     /**
