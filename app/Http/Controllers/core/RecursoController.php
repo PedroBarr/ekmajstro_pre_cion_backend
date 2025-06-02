@@ -160,7 +160,63 @@ class RecursoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $datos = $request->all();
+        $contenido = $datos;
+
+        $recurso = Recurso::findOrFail($id);
+
+        $rec_nombre = $contenido["nombre"] ?? '';
+        $rec_descripcion = $contenido["descripcion"] ?? '';
+        $rec_diminutivo = $contenido["diminutivo"] ?? '';
+        $tp_rec_id = $contenido["tipo_recurso"] ?? '';
+        $espc_descripcion = $contenido["especificacion"] ?? '';
+        
+        if ($rec_nombre) {
+          $recurso->rec_nombre = $rec_nombre;
+        }
+
+        if ($rec_descripcion) {
+          $recurso->rec_descripcion = $rec_descripcion;
+        }
+
+        if ($rec_diminutivo) {
+          $recurso->rec_diminutivo = $rec_diminutivo;
+        }
+
+        if ($tp_rec_id) {
+          $tipo_recurso = TipoRecurso::findOrFail($tp_rec_id);
+
+          if (!$tipo_recurso) {
+            return Response::json([
+                "error" => "Tipo de recurso no encontrado."
+            ], 404);
+          }
+
+          $recurso->tp_rec_id = $tipo_recurso->tp_rec_id;
+        }
+
+        if ($espc_descripcion) {
+          $especificacion_recurso = EspecificacionRecurso::findOrFail($recurso->espc_id);
+
+          if (!$especificacion_recurso) {
+            return Response::json([
+                "error" => "Especificación de recurso no encontrada."
+            ], 404);
+          }
+
+          $especificacion_recurso->espc_descripcin = $espc_descripcion;
+          $especificacion_recurso->save();
+        }
+
+        $archivo_controller = new ArchivoController();
+        $archivo_id = $recurso->arch_id;
+        $response = $archivo_controller->update($request, $archivo_id);
+
+        $recurso->save();
+
+        $recurso = $this->show($id);
+
+        return $recurso;
     }
 
     /**

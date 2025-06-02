@@ -78,6 +78,11 @@ Route::middleware(['cors'])->group(function ( ) {
       [\App\Http\Controllers\core\PublicacionController::class, 'recursos']
     )->name('recursos_publicacion');
 
+    Route::put(
+      "/recurso/{id}",
+      [\App\Http\Controllers\core\RecursoController::class, 'update']
+    )->name('editar_recurso');
+
     Route::post(
         "/archivo",
         [\App\Http\Controllers\core\ArchivoController::class, 'store']
