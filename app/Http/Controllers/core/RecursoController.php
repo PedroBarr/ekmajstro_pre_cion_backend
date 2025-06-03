@@ -148,7 +148,10 @@ class RecursoController extends Controller
      */
     public function show($id)
     {
-        return Recurso::findOrFail($id);
+        return Recurso::
+          with(['tipos', 'archivos', 'especificaciones'])->
+          findOrFail($id)
+        ;
     }
 
     /**
