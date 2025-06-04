@@ -136,7 +136,7 @@ class RecursoController extends Controller
 
         return $respuesta;
       } else {
-        return $recurso;
+        return $this->show($recurso->rec_id);
       }
     }
 
