@@ -330,7 +330,7 @@ class TrazabilidadController extends Controller
         "segm_posicion" => 1,
         "segm_contenido" => json_encode([
           "tipo" => "imagen",
-          "contenido" => "https://filebrowser-production-c5e2.up.railway.app/api/public/dl/KMBOa_Ut?inline=true",
+          "contenido" => "https://filebrowser-production-26bd.up.railway.app/api/public/dl/KMBOa_Ut?inline=true",
           "clase" => "circ_img peq-medd",
           "alternativo" => "Foto cortada de Pedro Barr.",
         ]),
